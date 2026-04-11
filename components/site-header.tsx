@@ -7,7 +7,7 @@ import { ChevronDown, ChevronRight, Menu, Phone, X } from 'lucide-react';
 import * as React from 'react';
 
 const nav = [
-  { href: '/#contact', label: 'Contact' }
+  { href: '/contact', label: 'Contact' }
 ];
 
 const propertyLocations = ['Kileleshwa', 'Kilimani', 'Kiambu Rd', 'Karen', 'Runda', 'Limuru', 'Tigoni', 'Kroad', 'Nyali'];
