@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background-color: #faf7f2;
+  --brand-green: #145b36;
+}
+
+body {
+  font-family: var(--font-manrope), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #faf7f2;
+  color: #0f1623;
+}
+
+::selection {
+  background: var(--brand-green);
+  color: #faf7f2;
+}
+
+a {
+  color: inherit;
+}
+
+.container-grid {
+  @apply grid gap-6 sm:grid-cols-2 xl:grid-cols-3;
+}
+
+.card-surface {
+  @apply rounded-3xl border border-white/70 bg-white/85 shadow-soft backdrop-blur;
+}
+
+.container-grid > .property-card-enter {
+  opacity: 0;
+  transform: translateX(64px);
+}
+
+.container-grid > .property-card-enter.is-visible {
+  animation: propertyCardIn 2.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.container-grid > .property-card-enter:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.container-grid > .property-card-enter:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.container-grid > .property-card-enter:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.container-grid > .property-card-enter:nth-child(5) {
+  animation-delay: 0.32s;
+}
+
+.container-grid > .property-card-enter:nth-child(6) {
+  animation-delay: 0.4s;
+}
+
+.hero-reveal-up {
+  opacity: 0;
+  transform: translateY(-26px);
+  animation: heroRevealUp 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-delay-1 {
+  animation-delay: 0.55s;
+}
+
+.hero-delay-2 {
+  animation-delay: 1.2s;
+}
+
+.hero-slide {
+  opacity: 0;
+  animation: heroSlideFade 22s infinite;
+}
+
+.hero-filter-enter {
+  opacity: 0;
+  transform: translateX(64px);
+  animation: heroFilterIn 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 1.15s;
+}
+
+.explore-card-enter {
+  opacity: 0;
+  transform: translateX(64px);
+}
+
+.explore-card-enter.is-visible {
+  animation: exploreCardIn 2.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.992);
+}
+
+.scroll-reveal.is-visible {
+  animation: scrollReveal 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.scroll-reveal-soft {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.scroll-reveal-soft.is-visible {
+  animation: scrollRevealSoft 2.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(64px);
+}
+
+.scroll-reveal-right.is-visible {
+  animation: scrollRevealRight 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.scroll-delay-1 {
+  animation-delay: 0.4s;
+}
+
+.scroll-delay-2 {
+  animation-delay: 0.78s;
+}
+
+.scroll-delay-3 {
+  animation-delay: 1.12s;
+}
+
+@keyframes heroRevealUp {
+  0% {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFilterIn {
+  from {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes exploreCardIn {
+  from {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes scrollRevealSoft {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollRevealRight {
+  from {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroSlideFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  28% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  38% {
+    opacity: 0;
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes propertyCardIn {
+  0% {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-filter-enter,
+  .explore-card-enter,
+  .scroll-reveal,
+  .scroll-reveal-soft,
+  .scroll-reveal-right {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

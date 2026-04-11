@@ -1,0 +1,49 @@
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+import PropertyForm from '@/components/admin/property-form';
+import { FLASK_API_URL, getAdminHeaders } from '@/lib/flask';
+
+export default function NewPropertyPage() {
+  async function createAction(formData: FormData) {
+    'use server';
+
+    const token = cookies().get('admin_token')?.value;
+    if (!token) redirect('/admin/login');
+
+    const payload = {
+      title: String(formData.get('title') || ''),
+      slug: String(formData.get('slug') || ''),
+      description: String(formData.get('description') || ''),
+      price: Number(formData.get('price') || 0),
+      currency: String(formData.get('currency') || 'KES'),
+      location: String(formData.get('location') || ''),
+      bedrooms: Number(formData.get('bedrooms') || 0),
+      bathrooms: Number(formData.get('bathrooms') || 0),
+      sizeSqm: formData.get('sizeSqm') ? Number(formData.get('sizeSqm')) : null,
+      amenities: String(formData.get('amenities') || ''),
+      images: String(formData.get('images') || ''),
+      featured: Boolean(formData.get('featured')),
+      status: String(formData.get('status') || 'AVAILABLE')
+    };
+
+    const res = await fetch(`${FLASK_API_URL}/api/properties`, {
+      method: 'POST',
+      headers: getAdminHeaders(token),
+      body: JSON.stringify(payload),
+      cache: 'no-store'
+    });
+
+    if (!res.ok) throw new Error('Failed to create property');
+
+    revalidatePath('/admin');
+    redirect('/admin');
+  }
+
+  return (
+    <div className="mx-auto max-w-4xl px-6 py-12">
+      <h1 className="mb-6 text-3xl text-ink-950">Add New Property</h1>
+      <PropertyForm action={createAction} submitLabel="Create Property" />
+    </div>
+  );
+}

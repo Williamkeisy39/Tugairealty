@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PropertyStatus {
+  AVAILABLE
+  SOLD
+  PENDING
+}
+
+model Property {
+  id          String         @id @default(cuid())
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  title       String
+  slug        String         @unique
+  description String
+
+  price       Int
+  currency    String         @default("KES")
+
+  location    String
+  bedrooms    Int
+  bathrooms   Int
+  sizeSqm     Int?
+
+  amenities   String[]
+  images      String[]
+
+  featured    Boolean        @default(false)
+  status      PropertyStatus @default(AVAILABLE)
+
+  inquiries   Inquiry[]
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  name      String
+  email     String
+  phone     String?
+  message   String
+
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+}
+
+model ProjectVideo {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  title        String
+  youtubeUrl   String
+  thumbnailUrl String
+  description  String?
+  sortOrder    Int      @default(0)
+  isActive     Boolean  @default(true)
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  coverImage  String?
+  author      String   @default("Tugai Realtors")
+  isPublished Boolean  @default(false)
+}
+
+enum SellRequestStatus {
+  PENDING
+  REVIEWED
+  CONTACTED
+  CLOSED
+}
+
+model SellRequest {
+  id          String            @id @default(cuid())
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  ownerName   String
+  email       String
+  phone       String
+  propertyTitle String
+  location    String
+  description String
+  bedrooms    Int?
+  bathrooms   Int?
+  sizeSqm     Int?
+  askingPrice Int?
+  currency    String            @default("KES")
+  images      String[]
+
+  status      SellRequestStatus @default(PENDING)
+  adminNotes  String?
+}
+
+enum RentalStatus {
+  AVAILABLE
+  RENTED
+  PENDING
+}
+
+model Rental {
+  id          String       @id @default(cuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  title       String
+  slug        String       @unique
+  description String
+
+  rentPrice   Int
+  currency    String       @default("KES")
+  rentPeriod  String       @default("per month")
+
+  location    String
+  bedrooms    Int
+  bathrooms   Int
+  sizeSqm     Int?
+
+  amenities   String[]
+  images      String[]
+
+  featured    Boolean      @default(false)
+  status      RentalStatus @default(AVAILABLE)
+}
