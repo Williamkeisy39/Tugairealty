@@ -20,7 +20,7 @@ export default function ContactPage() {
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/inquiries', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -110,8 +110,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-[0.2em] text-ink-500">Email</p>
-                  <a href="mailto:hello@tugai.africa" className="mt-1 block text-ink-900 hover:text-emerald-700 transition">
-                    hello@tugai.africa
+                  <a href="mailto:hello@tugairealtors.com" className="mt-1 block text-ink-900 hover:text-emerald-700 transition">
+                    hello@tugairealtors.com
                   </a>
                 </div>
               </div>

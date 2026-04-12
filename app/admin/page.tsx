@@ -79,6 +79,9 @@ export default async function AdminDashboardPage() {
           <Button asChild variant="outline">
             <Link href="/admin/sell-requests">Sell Requests</Link>
           </Button>
+          <Button asChild variant="outline">
+            <Link href="/admin/contact-messages">Contact Messages</Link>
+          </Button>
           <Button asChild>
             <Link href="/admin/properties/new">Add New Property</Link>
           </Button>

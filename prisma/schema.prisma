@@ -108,6 +108,26 @@ model SellRequest {
   adminNotes  String?
 }
 
+enum ContactMessageStatus {
+  NEW
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+model ContactMessage {
+  id        String               @id @default(cuid())
+  createdAt DateTime             @default(now())
+
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+
+  status    ContactMessageStatus @default(NEW)
+}
+
 enum RentalStatus {
   AVAILABLE
   RENTED

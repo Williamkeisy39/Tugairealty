@@ -119,7 +119,7 @@ export default async function HomePage() {
                 Browse Portfolio
               </Link>
               <Link
-                href="#contact"
+                href="/contact"
                 className="rounded-full border border-white/50 bg-white/10 px-6 py-3 text-xs uppercase tracking-[0.4em] text-white backdrop-blur"
               >
                 Speak to Advisor

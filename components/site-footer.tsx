@@ -8,13 +8,16 @@ export default function SiteFooter() {
           <Image src="/tugss.png" alt="Tugai Realtors" width={210} height={60} className="h-10 w-auto" />
         </div>
         <div className="flex flex-col gap-1 text-right text-ink-600">
-          <a href="mailto:hello@tugai.africa" className="hover:text-ink-900">
-            hello@tugai.africa
+          <a href="mailto:hello@tugairealtors.com" className="hover:text-ink-900">
+            hello@tugairealtors.com
           </a>
           <a href="tel:+254712470341" className="hover:text-ink-900">
             +254 712 470341
           </a>
         </div>
+      </div>
+      <div className="border-t border-ink-900/5 py-4 text-center text-xs text-ink-500">
+        &copy; {new Date().getFullYear()} Tugai Realtors. All rights reserved.
       </div>
     </footer>
   );

@@ -1,8 +1,11 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { formatCurrency } from '@/lib/utils';
 import PropertyGallery from '@/components/property-gallery';
+import PropertyCard from '@/components/property-card';
 import InquiryForm from '@/components/inquiry-form';
 import { Bath, BedDouble, MapPin, Phone, Ruler } from 'lucide-react';
 
@@ -36,6 +39,27 @@ export default async function PropertyDetailPage({ params }: PropertyPageProps) 
     notFound();
   }
 
+  const related = await prisma.property.findMany({
+    where: {
+      id: { not: property.id },
+      location: property.location
+    },
+    orderBy: { createdAt: 'desc' },
+    take: 3
+  });
+
+  const recommended = related.length < 3
+    ? await prisma.property.findMany({
+        where: {
+          id: { notIn: [property.id, ...related.map(r => r.id)] }
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 3 - related.length
+      })
+    : [];
+
+  const similarListings = [...related, ...recommended];
+
   const whatsappNumber = '254712470341';
   const whatsappMessage = [
     "Hi Tugai Realtors, I'm interested in this property.",
@@ -55,33 +79,42 @@ export default async function PropertyDetailPage({ params }: PropertyPageProps) 
 
   return (
     <div className="bg-sand-50">
-      <div className="mx-auto max-w-6xl px-6 pb-12 pt-28">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-ink-600">{property.location}</p>
-            <h1 className="mt-2 text-4xl text-ink-950">{property.title}</h1>
-            <div className="mt-4 flex flex-wrap gap-6 text-sm text-ink-700">
+      {/* Hero Banner */}
+      <section className="relative flex min-h-[50vh] items-end overflow-hidden">
+        <Image
+          src={property.images[0] || 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=80'}
+          alt={property.title}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-10 pt-32">
+          <p className="scroll-reveal text-xs uppercase tracking-[0.4em] text-white/70">{property.location}</p>
+          <h1 className="scroll-reveal mt-3 text-4xl font-light text-white md:text-5xl">{property.title}</h1>
+          <div className="scroll-reveal-soft scroll-delay-1 mt-4 flex flex-wrap gap-6 text-sm text-white/80">
+            <span className="inline-flex items-center gap-2">
+              <MapPin size={16} /> {property.location}
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <BedDouble size={16} /> {property.bedrooms} Bedrooms
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <Bath size={16} /> {property.bathrooms} Bathrooms
+            </span>
+            {property.sizeSqm && (
               <span className="inline-flex items-center gap-2">
-                <MapPin size={16} /> {property.location}
+                <Ruler size={16} /> {property.sizeSqm} sqm
               </span>
-              <span className="inline-flex items-center gap-2">
-                <BedDouble size={16} /> {property.bedrooms} Bedrooms
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Bath size={16} /> {property.bathrooms} Bathrooms
-              </span>
-              {property.sizeSqm && (
-                <span className="inline-flex items-center gap-2">
-                  <Ruler size={16} /> {property.sizeSqm} sqm
-                </span>
-              )}
-            </div>
+            )}
           </div>
-          <div className="text-right">
-            <p className="text-xs uppercase tracking-[0.3em] text-ink-600">Asking Price</p>
-            <p className="text-3xl text-ink-950">{formatCurrency(property.price, property.currency)}</p>
-          </div>
+          <p className="scroll-reveal-soft scroll-delay-2 mt-4 text-2xl font-semibold text-white md:text-3xl">
+            {formatCurrency(property.price, property.currency)}
+          </p>
         </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-6 pb-12 pt-10">
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[2fr,1fr]">
           <div className="space-y-10">
@@ -136,6 +169,26 @@ export default async function PropertyDetailPage({ params }: PropertyPageProps) 
           </div>
         </div>
       </div>
+
+      {/* Related / Recommended Listings */}
+      {similarListings.length > 0 && (
+        <section className="mx-auto max-w-6xl px-6 pb-16">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-ink-600">You May Also Like</p>
+              <h2 className="mt-2 text-3xl text-ink-950">Similar Listings</h2>
+            </div>
+            <Link href="/properties" className="text-sm uppercase tracking-[0.3em] text-ink-700 hover:text-ink-900 transition">
+              View All
+            </Link>
+          </div>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {similarListings.map((p) => (
+              <PropertyCard key={p.id} property={p} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

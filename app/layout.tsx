@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   title: 'Tugai Realtors — Contemporary Luxury Real Estate',
   description:
     'Discover curated luxury properties across Nairobi. Refined experiences, thoughtful design, and personalized service.',
-  metadataBase: new URL('https://example.com'),
+  metadataBase: new URL('https://tugairealtors.com'),
   openGraph: {
     title: 'Tugai Realtors',
     description: 'Curated luxury real estate in Nairobi',
-    url: 'https://example.com',
+    url: 'https://tugairealtors.com',
     siteName: 'Tugai Realtors'
   }
 };
