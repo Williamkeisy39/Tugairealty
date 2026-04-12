@@ -37,8 +37,8 @@ export default function NewPropertyPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
-      <h1 className="mb-6 text-3xl text-ink-950">Add New Property</h1>
+    <div className="max-w-4xl space-y-6">
+      <h1 className="text-2xl font-bold text-slate-900">Add New Property</h1>
       <PropertyForm action={createAction} submitLabel="Create Property" />
     </div>
   );

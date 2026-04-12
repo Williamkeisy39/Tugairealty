@@ -50,8 +50,8 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
-      <h1 className="mb-6 text-3xl text-ink-950">Edit Property</h1>
+    <div className="max-w-4xl space-y-6">
+      <h1 className="text-2xl font-bold text-slate-900">Edit Property</h1>
       <PropertyForm property={property as unknown as AdminProperty} action={updateAction} submitLabel="Save Changes" />
     </div>
   );

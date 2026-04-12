@@ -24,19 +24,20 @@ export default function AdminLoginPage({ searchParams }: LoginPageProps) {
   }
 
   return (
-    <div className="mx-auto max-w-md px-6 py-20">
-      <form action={loginAction} className="card-surface space-y-5 p-8">
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-ink-600">Admin</p>
-          <h1 className="mt-2 text-3xl text-ink-950">Dashboard Sign In</h1>
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
+      <form action={loginAction} className="w-full max-w-sm space-y-6 rounded-xl border border-slate-200 bg-white p-8 shadow-lg">
+        <div className="text-center">
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 text-white text-lg font-bold">T</div>
+          <h1 className="text-xl font-bold text-slate-900">Tugai Admin</h1>
+          <p className="mt-1 text-sm text-slate-500">Enter your admin token to continue</p>
         </div>
-        {searchParams?.error && <p className="text-sm text-red-600">Invalid admin token.</p>}
-        <label className="space-y-2 text-sm block">
-          <span>Admin Token</span>
-          <Input name="token" type="password" required />
+        {searchParams?.error && <p className="text-sm text-center text-red-600">Invalid admin token.</p>}
+        <label className="block space-y-1.5 text-sm">
+          <span className="font-medium text-slate-700">Admin Token</span>
+          <Input name="token" type="password" required placeholder="Enter token..." />
         </label>
-        <Button type="submit" className="w-full">
-          Continue
+        <Button type="submit" className="w-full rounded-lg bg-slate-900 hover:bg-slate-800 text-white">
+          Sign In
         </Button>
       </form>
     </div>

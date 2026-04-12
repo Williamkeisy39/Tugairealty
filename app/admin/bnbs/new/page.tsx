@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import ImageUpload from '@/components/admin/image-upload';
 import Link from 'next/link';
 
 export default function AdminNewBnbPage() {
@@ -51,38 +53,93 @@ export default function AdminNewBnbPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-12">
-      <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-3xl text-ink-950">New Bnb Listing</h1>
-        <Button asChild variant="outline">
+    <div className="max-w-3xl space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-slate-900">New Bnb Listing</h1>
+        <Button asChild variant="outline" className="rounded-lg">
           <Link href="/admin/bnbs">Cancel</Link>
         </Button>
       </div>
 
-      <form onSubmit={handleSubmit} className="card-surface space-y-4 p-6">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Input name="title" placeholder="Bnb Title" required />
-          <Input name="slug" placeholder="bnb-slug (URL-friendly)" required />
-        </div>
-        <Input name="location" placeholder="Location (e.g. Karen, Nairobi)" required />
-        <Textarea name="description" placeholder="Describe the Bnb experience..." required rows={4} />
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Input type="number" name="pricePerNight" placeholder="Price Per Night (KES)" required />
-          <Input name="currency" placeholder="Currency" defaultValue="KES" />
-          <Input type="number" name="maxGuests" placeholder="Max Guests" defaultValue="2" min={1} />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Input type="number" name="bedrooms" placeholder="Bedrooms" min={0} required />
-          <Input type="number" name="bathrooms" placeholder="Bathrooms" min={0} required />
-          <Input type="number" name="sizeSqm" placeholder="Size (sqm)" min={0} />
-        </div>
-        <Input name="amenities" placeholder="Amenities (comma-separated: WiFi, Pool, Kitchen)" />
-        <Input name="images" placeholder="Image URLs (comma-separated)" />
-        <label className="flex items-center gap-2 text-sm text-ink-700">
-          <input type="checkbox" name="featured" value="true" />
-          Featured listing
-        </label>
-        <Button type="submit" className="w-full" disabled={submitting}>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <Card>
+          <CardHeader><CardTitle>Basic Details</CardTitle></CardHeader>
+          <CardContent className="grid gap-5 sm:grid-cols-2">
+            <label className="space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Title</span>
+              <Input name="title" placeholder="Bnb Title" required />
+            </label>
+            <label className="space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Slug</span>
+              <Input name="slug" placeholder="bnb-slug (URL-friendly)" required />
+            </label>
+            <label className="space-y-1.5 text-sm sm:col-span-2">
+              <span className="font-medium text-slate-700">Location</span>
+              <Input name="location" placeholder="e.g. Karen, Nairobi" required />
+            </label>
+            <label className="space-y-1.5 text-sm sm:col-span-2">
+              <span className="font-medium text-slate-700">Description</span>
+              <Textarea name="description" placeholder="Describe the Bnb experience..." required rows={4} />
+            </label>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader><CardTitle>Pricing &amp; Specs</CardTitle></CardHeader>
+          <CardContent className="grid gap-5 sm:grid-cols-3">
+            <label className="space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Price Per Night</span>
+              <Input type="number" name="pricePerNight" placeholder="KES" required />
+            </label>
+            <label className="space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Currency</span>
+              <Input name="currency" defaultValue="KES" />
+            </label>
+            <label className="space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Max Guests</span>
+              <Input type="number" name="maxGuests" defaultValue="2" min={1} />
+            </label>
+            <label className="space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Bedrooms</span>
+              <Input type="number" name="bedrooms" min={0} required />
+            </label>
+            <label className="space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Bathrooms</span>
+              <Input type="number" name="bathrooms" min={0} required />
+            </label>
+            <label className="space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Size (sqm)</span>
+              <Input type="number" name="sizeSqm" min={0} />
+            </label>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader><CardTitle>Amenities &amp; Options</CardTitle></CardHeader>
+          <CardContent className="space-y-5">
+            <label className="block space-y-1.5 text-sm">
+              <span className="font-medium text-slate-700">Amenities (comma-separated)</span>
+              <Input name="amenities" placeholder="WiFi, Pool, Kitchen, Parking" />
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" name="featured" value="true" className="h-4 w-4 rounded border-slate-300" />
+              <span className="font-medium text-slate-700">Featured listing</span>
+            </label>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader><CardTitle>Bnb Images</CardTitle></CardHeader>
+          <CardContent>
+            <ImageUpload
+              name="images"
+              label="Add images via URL or upload from your computer"
+              multiple
+            />
+          </CardContent>
+        </Card>
+
+        <Button type="submit" className="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-8" disabled={submitting}>
           {submitting ? 'Creating...' : 'Create Bnb'}
         </Button>
       </form>

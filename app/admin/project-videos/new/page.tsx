@@ -28,8 +28,8 @@ export default function NewProjectVideoPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
-      <h1 className="mb-6 text-3xl text-ink-950">Add Project Video</h1>
+    <div className="max-w-4xl space-y-6">
+      <h1 className="text-2xl font-bold text-slate-900">Add Project Video</h1>
       <ProjectVideoForm action={createAction} submitLabel="Create Video" />
     </div>
   );

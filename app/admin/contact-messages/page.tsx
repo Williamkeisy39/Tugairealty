@@ -36,21 +36,18 @@ export default async function AdminContactMessagesPage() {
   const messages = await prisma.contactMessage.findMany({ orderBy: { createdAt: 'desc' } });
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-ink-600">Admin Dashboard</p>
-          <h1 className="mt-2 text-3xl text-ink-950">Contact Messages</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Contact Messages</h1>
+          <p className="text-sm text-slate-500">Review incoming contact form submissions</p>
         </div>
-        <Button asChild variant="outline">
-          <Link href="/admin">Back to Dashboard</Link>
-        </Button>
       </div>
 
-      <div className="card-surface overflow-x-auto p-4">
+      <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-x-auto">
         <table className="w-full min-w-[800px] text-left text-sm">
           <thead>
-            <tr className="border-b border-ink-900/10 text-ink-600">
+            <tr className="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500">
               <th className="px-3 py-3">Date</th>
               <th className="px-3 py-3">Name</th>
               <th className="px-3 py-3">Email</th>

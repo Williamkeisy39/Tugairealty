@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { Button } from '@/components/ui/button';
 import { revalidatePath } from 'next/cache';
+import { Plus } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,26 +38,21 @@ export default async function AdminBlogsPage() {
   const posts = await prisma.blogPost.findMany({ orderBy: { createdAt: 'desc' } });
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-ink-600">Admin Dashboard</p>
-          <h1 className="mt-2 text-3xl text-ink-950">Manage Blog Posts</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Blog Posts</h1>
+          <p className="text-sm text-slate-500">Manage your blog content</p>
         </div>
-        <div className="flex gap-3">
-          <Button asChild variant="outline">
-            <Link href="/admin">Back to Dashboard</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/admin/blogs/new">New Blog Post</Link>
-          </Button>
-        </div>
+        <Button asChild className="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white">
+          <Link href="/admin/blogs/new"><Plus size={16} className="mr-2" />New Post</Link>
+        </Button>
       </div>
 
-      <div className="card-surface overflow-x-auto p-4">
+      <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-x-auto">
         <table className="w-full min-w-[760px] text-left text-sm">
           <thead>
-            <tr className="border-b border-ink-900/10 text-ink-600">
+            <tr className="border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500">
               <th className="px-3 py-3">Title</th>
               <th className="px-3 py-3">Author</th>
               <th className="px-3 py-3">Date</th>
