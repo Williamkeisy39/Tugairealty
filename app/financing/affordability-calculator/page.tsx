@@ -85,7 +85,18 @@ export default function AffordabilityCalculatorPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-4xl px-6 pb-20 pt-12">
+      <div className="relative pb-20 pt-12">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=2200&q=60"
+            alt=""
+            fill
+            className="object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-white/90 backdrop-blur-sm" />
+        </div>
+        <div className="relative mx-auto max-w-4xl px-6">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
           <div className="card-surface space-y-6 p-8">
             <div className="flex items-center gap-3">
@@ -220,6 +231,7 @@ export default function AffordabilityCalculatorPage() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </div>

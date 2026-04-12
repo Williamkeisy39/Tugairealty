@@ -1,8 +1,38 @@
+import Image from 'next/image';
+
 export default function TermsPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 pb-20 pt-32">
-      <p className="text-xs uppercase tracking-[0.4em] text-emerald-700">Legal</p>
-      <h1 className="mt-3 text-4xl text-ink-950">Terms &amp; Conditions</h1>
+    <div>
+      <section className="relative flex min-h-[40vh] items-center justify-center overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=2200&q=80"
+          alt="Terms and Conditions"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+        <div className="relative z-10 mx-auto max-w-3xl px-6 pt-24 pb-12 text-center">
+          <p className="scroll-reveal text-xs uppercase tracking-[0.4em] text-white/70">Legal</p>
+          <h1 className="scroll-reveal mt-3 text-5xl font-light text-white md:text-6xl">Terms &amp; Conditions</h1>
+          <p className="scroll-reveal-soft scroll-delay-1 mt-4 text-lg text-white/80">
+            Please read these terms carefully before using the Tugai Realtors website.
+          </p>
+        </div>
+      </section>
+
+      <div className="relative pb-20 pt-12">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2200&q=60"
+            alt=""
+            fill
+            className="object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-white/92 backdrop-blur-sm" />
+        </div>
+        <div className="relative mx-auto max-w-3xl px-6">
       <div className="mt-8 space-y-6 text-sm leading-7 text-ink-700">
         <p><strong className="text-ink-900">Effective Date:</strong> January 1, 2024</p>
 
@@ -38,6 +68,8 @@ export default function TermsPage() {
 
         <h2 className="text-lg font-semibold text-ink-900">11. Contact</h2>
         <p>For questions about these Terms, contact us at <a href="mailto:hello@tugairealtors.com" className="text-emerald-700 hover:underline">hello@tugairealtors.com</a>.</p>
+      </div>
+      </div>
       </div>
     </div>
   );

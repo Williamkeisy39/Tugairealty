@@ -32,7 +32,18 @@ export default async function BnbsPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-6 pb-20 pt-12">
+      <div className="relative pb-20 pt-12">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2200&q=60"
+            alt=""
+            fill
+            className="object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-white/90 backdrop-blur-sm" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-6">
         {bnbs.length === 0 ? (
           <p className="py-16 text-center text-ink-500">No Bnbs available at the moment. Check back soon.</p>
         ) : (
@@ -96,6 +107,7 @@ export default async function BnbsPage() {
             })}
           </div>
         )}
+        </div>
       </div>
     </div>
   );

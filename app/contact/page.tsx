@@ -79,7 +79,18 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-6 pb-20 pt-12">
+      <div className="relative pb-20 pt-12">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=60"
+            alt=""
+            fill
+            className="object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-white/90 backdrop-blur-sm" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
 
           {/* Contact Info */}
@@ -193,6 +204,7 @@ export default function ContactPage() {
             </Button>
           </form>
 
+        </div>
         </div>
       </div>
     </div>
