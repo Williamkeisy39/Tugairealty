@@ -58,6 +58,7 @@ const aboutSubMenu = [
 
 export default function SiteHeader() {
   const [scrolled, setScrolled] = React.useState(false);
+  const [hasHero, setHasHero] = React.useState(true);
   const [isPropertiesOpen, setIsPropertiesOpen] = React.useState(false);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isRealEstateOpen, setIsRealEstateOpen] = React.useState(false);
@@ -76,6 +77,28 @@ export default function SiteHeader() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Detect whether the current page has a hero section behind the header
+  React.useEffect(() => {
+    const checkHero = () => {
+      const main = document.querySelector('main');
+      if (!main) { setHasHero(false); return; }
+      const firstSection = main.querySelector('section');
+      if (!firstSection) { setHasHero(false); return; }
+      const classes = firstSection.className || '';
+      setHasHero(/min-h-\[/.test(classes) && /relative/.test(classes));
+    };
+    // Check after a short delay to allow page content to render
+    const timer = setTimeout(checkHero, 100);
+    // Also observe DOM changes (e.g. form submission replaces hero with feedback)
+    const main = document.querySelector('main');
+    let observer: MutationObserver | null = null;
+    if (main) {
+      observer = new MutationObserver(() => setTimeout(checkHero, 50));
+      observer.observe(main, { childList: true, subtree: true });
+    }
+    return () => { clearTimeout(timer); observer?.disconnect(); };
+  }, [pathname]);
 
   React.useEffect(() => {
     return () => {
@@ -186,7 +209,7 @@ export default function SiteHeader() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 border-b transition-all duration-300 ${
-        !scrolled
+        !scrolled && hasHero
           ? 'border-black/30 bg-black/22 backdrop-blur-xl backdrop-saturate-125 shadow-[0_10px_30px_rgba(0,0,0,0.34)]'
           : 'border-[#145b36] bg-[#145b36] shadow-[0_8px_28px_rgba(0,0,0,0.24)]'
       }`}
