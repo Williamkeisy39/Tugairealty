@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { FLASK_API_URL } from '@/lib/flask';
 
 interface LoginPageProps {
   searchParams?: { error?: string };
@@ -13,14 +12,9 @@ export default function AdminLoginPage({ searchParams }: LoginPageProps) {
     'use server';
 
     const token = String(formData.get('token') || '');
-    const res = await fetch(`${FLASK_API_URL}/api/admin/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
-      cache: 'no-store'
-    });
+    const expectedToken = process.env.ADMIN_TOKEN || 'change-me';
 
-    if (!res.ok) {
+    if (token !== expectedToken) {
       redirect('/admin/login?error=1');
     }
 
