@@ -3,17 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { Button } from '@/components/ui/button';
-import { FLASK_API_URL, getAdminHeaders } from '@/lib/flask';
-
-interface AdminProjectVideo {
-  id: string;
-  title: string;
-  youtubeUrl: string;
-  thumbnailUrl: string;
-  description?: string | null;
-  sortOrder: number;
-  isActive: boolean;
-}
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,26 +21,12 @@ export default async function AdminProjectVideosPage() {
     const currentToken = cookies().get('admin_token')?.value;
     if (!currentToken) redirect('/admin/login');
 
-    await fetch(`${FLASK_API_URL}/api/project-videos/${id}`, {
-      method: 'DELETE',
-      headers: getAdminHeaders(currentToken),
-      cache: 'no-store'
-    });
-
+    await prisma.projectVideo.delete({ where: { id } });
     revalidatePath('/admin/project-videos');
     revalidatePath('/about');
   }
 
-  const res = await fetch(`${FLASK_API_URL}/api/project-videos`, {
-    headers: getAdminHeaders(token),
-    cache: 'no-store'
-  });
-
-  if (!res.ok) {
-    redirect('/admin/login');
-  }
-
-  const videos = (await res.json()) as AdminProjectVideo[];
+  const videos = await prisma.projectVideo.findMany({ orderBy: { sortOrder: 'asc' } });
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">

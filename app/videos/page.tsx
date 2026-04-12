@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FLASK_API_URL } from '@/lib/flask';
+import { prisma } from '@/lib/prisma';
 import AboutProjectVideos from '@/components/about-project-videos';
 
 export const dynamic = 'force-dynamic';
@@ -26,48 +26,48 @@ function toNumber(value?: string | string[]) {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
+const fallbackVideos: ProjectVideo[] = [
+  {
+    id: 'fallback-1',
+    title: 'Luxury Home Tour I',
+    youtubeUrl: 'https://www.youtube.com/watch?v=KI2XpmJcEm8',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80',
+    description: null
+  },
+  {
+    id: 'fallback-2',
+    title: 'Luxury Home Tour II',
+    youtubeUrl: 'https://www.youtube.com/watch?v=jTMUOVcOY6c',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80',
+    description: null
+  },
+  {
+    id: 'fallback-3',
+    title: 'Signature Project Showcase',
+    youtubeUrl: 'https://www.youtube.com/watch?v=X1OtJb-CEHY',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=80',
+    description: null
+  },
+  {
+    id: 'fallback-4',
+    title: 'Nairobi Premium Listing Walkthrough',
+    youtubeUrl: 'https://www.youtube.com/watch?v=HAAfDjv2AEw',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1400&q=80',
+    description: null
+  }
+];
+
 async function getProjectVideos(): Promise<ProjectVideo[]> {
   try {
-    const response = await fetch(`${FLASK_API_URL}/api/public/project-videos`, {
-      cache: 'no-store'
+    const videos = await prisma.projectVideo.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: 'asc' }
     });
-
-    const projectVideos = response.ok ? ((await response.json()) as ProjectVideo[]) : [];
-    if (projectVideos.length > 0) return projectVideos;
+    if (videos.length > 0) return videos;
   } catch {
-    // Fallback keeps videos page stable if backend is unreachable.
+    // Fallback keeps videos page stable if DB is unreachable.
   }
-
-  return [
-    {
-      id: 'fallback-1',
-      title: 'Luxury Home Tour I',
-      youtubeUrl: 'https://www.youtube.com/watch?v=KI2XpmJcEm8',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80',
-      description: null
-    },
-    {
-      id: 'fallback-2',
-      title: 'Luxury Home Tour II',
-      youtubeUrl: 'https://www.youtube.com/watch?v=jTMUOVcOY6c',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80',
-      description: null
-    },
-    {
-      id: 'fallback-3',
-      title: 'Signature Project Showcase',
-      youtubeUrl: 'https://www.youtube.com/watch?v=X1OtJb-CEHY',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=80',
-      description: null
-    },
-    {
-      id: 'fallback-4',
-      title: 'Nairobi Premium Listing Walkthrough',
-      youtubeUrl: 'https://www.youtube.com/watch?v=HAAfDjv2AEw',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1400&q=80',
-      description: null
-    }
-  ];
+  return fallbackVideos;
 }
 
 export default async function VideosPage({ searchParams }: VideosPageProps) {

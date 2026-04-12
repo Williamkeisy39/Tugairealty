@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { Button } from '@/components/ui/button';
-import { FLASK_API_URL, getAdminHeaders } from '@/lib/flask';
+import { prisma } from '@/lib/prisma';
 import { formatCurrency } from '@/lib/utils';
 
 interface AdminProperty {
@@ -39,25 +39,11 @@ export default async function AdminDashboardPage() {
     const currentToken = cookies().get('admin_token')?.value;
     if (!currentToken) redirect('/admin/login');
 
-    await fetch(`${FLASK_API_URL}/api/properties/${id}`, {
-      method: 'DELETE',
-      headers: getAdminHeaders(currentToken),
-      cache: 'no-store'
-    });
-
+    await prisma.property.delete({ where: { id } });
     revalidatePath('/admin');
   }
 
-  const res = await fetch(`${FLASK_API_URL}/api/properties`, {
-    headers: getAdminHeaders(token),
-    cache: 'no-store'
-  });
-
-  if (!res.ok) {
-    redirect('/admin/login');
-  }
-
-  const properties = (await res.json()) as AdminProperty[];
+  const properties = await prisma.property.findMany({ orderBy: { createdAt: 'desc' } });
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
