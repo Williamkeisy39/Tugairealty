@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${manrope.variable} ${playfair.variable}`}>
-      <body className="min-h-screen bg-sand-50 text-ink-900">
+      <body className="min-h-screen overflow-x-hidden bg-sand-50 text-ink-900">
         <ScrollRevealObserver />
         <PublicShell>{children}</PublicShell>
         <Toaster position="top-right" richColors />

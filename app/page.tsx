@@ -103,11 +103,11 @@ export default async function HomePage() {
           ))}
         </div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(20,91,54,0.45),rgba(7,15,10,0.82)_55%,rgba(7,15,10,0.9))]" />
-        <div className="relative mx-auto max-w-[96rem] px-2 pt-22 text-white sm:px-3 lg:pt-28">
+        <div className="relative mx-auto max-w-[96rem] px-5 pt-28 text-white sm:px-6 md:pt-24 lg:pt-28">
           <div className="max-w-3xl">
             <p className="hero-reveal-up text-xs uppercase tracking-[0.4em] text-emerald-100/90">Your Exclusive Property Partner</p>
-            <h1 className="hero-reveal-up hero-delay-1 mt-5 font-serif text-5xl leading-tight sm:text-6xl">We find what others can&apos;t — the home you deserve.</h1>
-            <p className="hero-reveal-up hero-delay-2 mt-6 text-lg text-white/85">
+            <h1 className="hero-reveal-up hero-delay-1 mt-5 font-serif text-3xl leading-tight sm:text-5xl md:text-6xl">We find what others can&apos;t — the home you deserve.</h1>
+            <p className="hero-reveal-up hero-delay-2 mt-6 text-base text-white/85 sm:text-lg">
               Tired of settling? Tugai Realtors specialises in sourcing elite residences and high-yield investments
               for discerning buyers who demand more. From private villas to premium apartments — we solve
               the hardest search in Nairobi real estate.

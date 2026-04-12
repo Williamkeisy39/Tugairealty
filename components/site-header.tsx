@@ -214,9 +214,9 @@ export default function SiteHeader() {
           : 'border-[#145b36] bg-[#145b36] shadow-[0_8px_28px_rgba(0,0,0,0.24)]'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-6">
-        <Link href="/" className="inline-flex items-center rounded-md border border-white/20 bg-black/28 px-2.5 py-1.5 backdrop-blur-sm">
-          <Image src="/Tugailogo.png" alt="Tugai Realtors logo" width={190} height={60} className="h-11 w-auto md:h-12" priority />
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:px-6">
+        <Link href="/" className="inline-flex shrink-0 items-center rounded-md border border-white/20 bg-black/28 px-2 py-1.5 backdrop-blur-sm sm:px-2.5">
+          <Image src="/Tugailogo.png" alt="Tugai Realtors logo" width={190} height={60} className="h-9 w-auto sm:h-11 md:h-12" priority />
         </Link>
         <nav className="hidden gap-7 lg:gap-10 md:flex">
           <Link
@@ -418,7 +418,7 @@ export default function SiteHeader() {
           </Link>
         </div>
         <button
-          className="rounded-full border border-black/40 bg-black/25 p-2 text-white md:hidden"
+          className="shrink-0 rounded-full border border-black/40 bg-black/25 p-2.5 text-white md:hidden"
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMobileMenuOpen}
           onClick={() => setIsMobileMenuOpen((open) => !open)}
@@ -428,7 +428,7 @@ export default function SiteHeader() {
       </div>
 
       {isMobileMenuOpen ? (
-        <div className="border-t border-white/15 bg-[#0a2a1b]/95 px-5 pb-6 pt-4 backdrop-blur-md md:hidden">
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-white/15 bg-[#0a2a1b]/95 px-5 pb-6 pt-4 backdrop-blur-md md:hidden">
           <nav className="space-y-2">
             <Link
               href="/"
