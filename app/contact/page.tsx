@@ -88,7 +88,7 @@ export default function ContactPage() {
             className="object-cover"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-white/90 backdrop-blur-sm" />
+          <div className="absolute inset-0 border border-white/30 bg-white/30 backdrop-blur-md backdrop-saturate-150" />
         </div>
         <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">

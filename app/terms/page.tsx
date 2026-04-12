@@ -30,7 +30,7 @@ export default function TermsPage() {
             className="object-cover"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-white/92 backdrop-blur-sm" />
+          <div className="absolute inset-0 border border-white/30 bg-white/30 backdrop-blur-md backdrop-saturate-150" />
         </div>
         <div className="relative mx-auto max-w-3xl px-6">
       <div className="mt-8 space-y-6 text-sm leading-7 text-ink-700">

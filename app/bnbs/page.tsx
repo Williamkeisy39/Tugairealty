@@ -41,7 +41,7 @@ export default async function BnbsPage() {
             className="object-cover"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-white/90 backdrop-blur-sm" />
+          <div className="absolute inset-0 border border-white/30 bg-white/30 backdrop-blur-md backdrop-saturate-150" />
         </div>
         <div className="relative mx-auto max-w-6xl px-6">
         {bnbs.length === 0 ? (
