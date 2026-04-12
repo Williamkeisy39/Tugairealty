@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function SiteFooter() {
   return (
@@ -17,7 +18,11 @@ export default function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-ink-900/5 py-4 text-center text-xs text-ink-500">
-        &copy; {new Date().getFullYear()} Tugai Realtors. All rights reserved.
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <span>&copy; {new Date().getFullYear()} Tugai Realtors. All rights reserved.</span>
+          <Link href="/terms" className="hover:text-ink-900 transition">Terms &amp; Conditions</Link>
+          <Link href="/privacy" className="hover:text-ink-900 transition">Privacy Policy</Link>
+        </div>
       </div>
     </footer>
   );

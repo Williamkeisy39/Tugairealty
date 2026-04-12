@@ -158,3 +158,34 @@ model Rental {
   featured    Boolean      @default(false)
   status      RentalStatus @default(AVAILABLE)
 }
+
+enum BnbStatus {
+  AVAILABLE
+  BOOKED
+  MAINTENANCE
+}
+
+model Bnb {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  title       String
+  slug        String    @unique
+  description String
+
+  pricePerNight Int
+  currency      String    @default("KES")
+
+  location    String
+  bedrooms    Int
+  bathrooms   Int
+  maxGuests   Int       @default(2)
+  sizeSqm     Int?
+
+  amenities   String[]
+  images      String[]
+
+  featured    Boolean   @default(false)
+  status      BnbStatus @default(AVAILABLE)
+}

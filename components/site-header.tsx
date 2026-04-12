@@ -7,7 +7,15 @@ import { ChevronDown, ChevronRight, Menu, Phone, X } from 'lucide-react';
 import * as React from 'react';
 
 const nav = [
+  { href: '/financing', label: 'Financing' },
   { href: '/contact', label: 'Contact' }
+];
+
+const realEstateSubMenu = [
+  { href: '/properties', label: 'Buy' },
+  { href: '/sell', label: 'Sell' },
+  { href: '/rentals', label: 'Rentals' },
+  { href: '/bnbs', label: 'Luxury Bnbs' }
 ];
 
 const propertyLocations = ['Kileleshwa', 'Kilimani', 'Kiambu Rd', 'Karen', 'Runda', 'Limuru', 'Tigoni', 'Kroad', 'Nyali'];
@@ -52,11 +60,14 @@ export default function SiteHeader() {
   const [scrolled, setScrolled] = React.useState(false);
   const [isPropertiesOpen, setIsPropertiesOpen] = React.useState(false);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isRealEstateOpen, setIsRealEstateOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isMobilePropertiesOpen, setIsMobilePropertiesOpen] = React.useState(false);
   const [isMobileQuickMenuOpen, setIsMobileQuickMenuOpen] = React.useState(false);
+  const [isMobileRealEstateOpen, setIsMobileRealEstateOpen] = React.useState(false);
   const closeMenuTimeoutRef = React.useRef<number | null>(null);
   const closeQuickMenuTimeoutRef = React.useRef<number | null>(null);
+  const closeRealEstateTimeoutRef = React.useRef<number | null>(null);
   const pathname = usePathname();
 
   React.useEffect(() => {
@@ -71,9 +82,11 @@ export default function SiteHeader() {
       if (closeMenuTimeoutRef.current !== null) {
         window.clearTimeout(closeMenuTimeoutRef.current);
       }
-
       if (closeQuickMenuTimeoutRef.current !== null) {
         window.clearTimeout(closeQuickMenuTimeoutRef.current);
+      }
+      if (closeRealEstateTimeoutRef.current !== null) {
+        window.clearTimeout(closeRealEstateTimeoutRef.current);
       }
     };
   }, []);
@@ -82,6 +95,7 @@ export default function SiteHeader() {
     setIsMobileMenuOpen(false);
     setIsMobilePropertiesOpen(false);
     setIsMobileQuickMenuOpen(false);
+    setIsMobileRealEstateOpen(false);
   }, [pathname]);
 
   React.useEffect(() => {
@@ -143,6 +157,30 @@ export default function SiteHeader() {
     const nextFocused = event.relatedTarget;
     if (nextFocused && event.currentTarget.contains(nextFocused as Node)) return;
     closeQuickMenu();
+  };
+
+  const openRealEstateMenu = () => {
+    if (closeRealEstateTimeoutRef.current !== null) {
+      window.clearTimeout(closeRealEstateTimeoutRef.current);
+      closeRealEstateTimeoutRef.current = null;
+    }
+    setIsRealEstateOpen(true);
+  };
+
+  const closeRealEstateMenu = () => {
+    if (closeRealEstateTimeoutRef.current !== null) {
+      window.clearTimeout(closeRealEstateTimeoutRef.current);
+    }
+    closeRealEstateTimeoutRef.current = window.setTimeout(() => {
+      setIsRealEstateOpen(false);
+      closeRealEstateTimeoutRef.current = null;
+    }, 140);
+  };
+
+  const handleRealEstateBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    const nextFocused = event.relatedTarget;
+    if (nextFocused && event.currentTarget.contains(nextFocused as Node)) return;
+    closeRealEstateMenu();
   };
 
   return (
@@ -274,12 +312,36 @@ export default function SiteHeader() {
             </div>
           </div>
 
-          <Link
-            href="/rentals"
-            className="relative text-[13px] font-bold uppercase tracking-[0.03em] text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.75)] transition duration-300 hover:-translate-y-0.5 hover:text-white/85 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-white/90 after:transition-transform after:duration-300 hover:after:scale-x-100"
+          <div
+            className="group relative"
+            onMouseEnter={openRealEstateMenu}
+            onMouseLeave={closeRealEstateMenu}
+            onFocusCapture={openRealEstateMenu}
+            onBlurCapture={handleRealEstateBlur}
           >
-            Rentals
-          </Link>
+            <button
+              className="relative inline-flex items-center gap-1 text-[13px] font-bold uppercase tracking-[0.03em] text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.75)] transition duration-300 hover:-translate-y-0.5 hover:text-white/85 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-white/90 after:transition-transform after:duration-300 hover:after:scale-x-100"
+            >
+              Real Estate
+              <ChevronDown size={14} className="opacity-90" aria-hidden />
+            </button>
+            <div
+              className={`absolute left-1/2 top-full z-50 mt-3 w-52 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3 shadow-xl transition duration-200 ${
+                isRealEstateOpen ? 'visible opacity-100 pointer-events-auto' : 'invisible opacity-0 pointer-events-none'
+              }`}
+            >
+              {realEstateSubMenu.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="flex items-center justify-between rounded-lg px-3 py-2.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-gray-600 transition hover:bg-gray-50 hover:text-emerald-600"
+                >
+                  <span>{item.label}</span>
+                  <ChevronRight size={13} className="text-gray-400" aria-hidden />
+                </Link>
+              ))}
+            </div>
+          </div>
 
           <div
             className="group relative"
@@ -312,13 +374,6 @@ export default function SiteHeader() {
               ))}
             </div>
           </div>
-
-          <Link
-            href="/sell"
-            className="relative text-[13px] font-bold uppercase tracking-[0.03em] text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.75)] transition duration-300 hover:-translate-y-0.5 hover:text-white/85 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-white/90 after:transition-transform after:duration-300 hover:after:scale-x-100"
-          >
-            Sell
-          </Link>
 
           {nav.map((item) => (
             <Link
@@ -452,13 +507,30 @@ export default function SiteHeader() {
               </div>
             ) : null}
 
-            <Link
-              href="/rentals"
-              className="flex items-center justify-between rounded-xl px-3 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white/95 transition hover:bg-white/10"
+            <button
+              type="button"
+              className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-left text-xs font-bold uppercase tracking-[0.16em] text-white/95 transition hover:bg-white/10"
+              onClick={() => setIsMobileRealEstateOpen((open) => !open)}
+              aria-expanded={isMobileRealEstateOpen}
             >
-              <span>Rentals</span>
-              <ChevronRight size={14} aria-hidden />
-            </Link>
+              <span>Real Estate</span>
+              <ChevronDown size={15} className={`transition ${isMobileRealEstateOpen ? 'rotate-180' : ''}`} aria-hidden />
+            </button>
+
+            {isMobileRealEstateOpen ? (
+              <div className="mx-1 space-y-1 rounded-xl border border-white/15 bg-black/25 p-2">
+                {realEstateSubMenu.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="flex items-center justify-between rounded-lg px-3 py-2 text-xs uppercase tracking-[0.12em] text-white/90 transition hover:bg-white/10"
+                  >
+                    <span>{item.label}</span>
+                    <ChevronRight size={13} aria-hidden />
+                  </Link>
+                ))}
+              </div>
+            ) : null}
 
             <button
               type="button"
@@ -484,14 +556,6 @@ export default function SiteHeader() {
                 ))}
               </div>
             ) : null}
-
-            <Link
-              href="/sell"
-              className="flex items-center justify-between rounded-xl px-3 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white/95 transition hover:bg-white/10"
-            >
-              <span>Sell</span>
-              <ChevronRight size={14} aria-hidden />
-            </Link>
 
             {nav.map((item) => (
               <Link

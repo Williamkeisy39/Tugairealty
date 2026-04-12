@@ -4,6 +4,7 @@ import { Toaster } from 'sonner';
 import './globals.css';
 import { ReactNode } from 'react';
 import FloatingWhatsapp from '@/components/floating-whatsapp';
+import FloatingSocials from '@/components/floating-socials';
 import ScrollRevealObserver from '@/components/scroll-reveal-observer';
 import SiteHeader from '@/components/site-header';
 import SiteFooter from '@/components/site-footer';
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <SiteFooter />
         </div>
         <FloatingWhatsapp />
+        <FloatingSocials />
         <Toaster position="top-right" richColors />
       </body>
     </html>
