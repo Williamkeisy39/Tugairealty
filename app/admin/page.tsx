@@ -20,7 +20,7 @@ export default async function AdminDashboardPage() {
       prisma.property.findMany({ orderBy: { createdAt: 'desc' } }),
       prisma.rental.count(),
       prisma.projectVideo.count(),
-      prisma.blog.count(),
+      prisma.blogPost.count(),
       prisma.sellRequest.count(),
       prisma.contactMessage.count(),
     ]);

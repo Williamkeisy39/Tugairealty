@@ -3,11 +3,8 @@ import { Manrope, Playfair_Display } from 'next/font/google';
 import { Toaster } from 'sonner';
 import './globals.css';
 import { ReactNode } from 'react';
-import FloatingWhatsapp from '@/components/floating-whatsapp';
-import FloatingSocials from '@/components/floating-socials';
 import ScrollRevealObserver from '@/components/scroll-reveal-observer';
-import SiteHeader from '@/components/site-header';
-import SiteFooter from '@/components/site-footer';
+import PublicShell from '@/components/public-shell';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -39,13 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className={`${manrope.variable} ${playfair.variable}`}>
       <body className="min-h-screen bg-sand-50 text-ink-900">
         <ScrollRevealObserver />
-        <div className="relative min-h-screen flex flex-col">
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </div>
-        <FloatingWhatsapp />
-        <FloatingSocials />
+        <PublicShell>{children}</PublicShell>
         <Toaster position="top-right" richColors />
       </body>
     </html>
