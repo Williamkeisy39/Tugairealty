@@ -18,7 +18,7 @@ const realEstateSubMenu = [
   { href: '/bnbs', label: 'Luxury Bnbs' }
 ];
 
-const propertyLocations = ['Kileleshwa', 'Kilimani', 'Kiambu Rd', 'Karen', 'Runda', 'Limuru', 'Tigoni', 'Kroad', 'Nyali'];
+const propertyLocations = ['Kileleshwa', 'Kilimani', 'Kiambu Rd', 'Karen', 'Runda', 'Limuru', 'Tigoni', 'Thika Road', 'Kroad', 'Nyali'];
 
 const propertyUse = [
   { label: 'Family House', query: 'family house' },
