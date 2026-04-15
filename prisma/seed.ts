@@ -39,15 +39,19 @@ async function main() {
       bathrooms: 1,
       sizeSqm: 55,
       amenities: [
-        'Landscaped Park',
-        'Heated Pool',
-        'Gym',
-        'Clubhouse',
-        'BBQ Deck',
-        'Jogging Track',
-        'Kids Play Area',
-        'Multi-Sports Court',
-        'Security'
+        'Semi-Olympic heated swimming pool (one of the largest in Nairobi)',
+        'Fully equipped residents-only gym',
+        'Expansive clubhouse with BBQ deck',
+        'Multi-purpose sports court',
+        'Outdoor & Green Living',
+        '1-acre landscaped park with botanical gardens',
+        'Private 300m jogging & walking track',
+        'Beautifully landscaped green spaces for relaxation',
+        'Outdoor seating and nature-inspired spaces',
+        'Family-Friendly Amenities',
+        'Dedicated children’s play area',
+        'Recreation park for families',
+        'Safe, secure community environment'
       ],
       images: [
         '/Amaiya%201.jpeg',
@@ -68,15 +72,19 @@ async function main() {
       bathrooms: 2,
       sizeSqm: 73,
       amenities: [
-        'Landscaped Park',
-        'Heated Pool',
-        'Gym',
-        'Clubhouse',
-        'BBQ Deck',
-        'Jogging Track',
-        'Kids Play Area',
-        'Multi-Sports Court',
-        'Security'
+        'Semi-Olympic heated swimming pool (one of the largest in Nairobi)',
+        'Fully equipped residents-only gym',
+        'Expansive clubhouse with BBQ deck',
+        'Multi-purpose sports court',
+        'Outdoor & Green Living',
+        '1-acre landscaped park with botanical gardens',
+        'Private 300m jogging & walking track',
+        'Beautifully landscaped green spaces for relaxation',
+        'Outdoor seating and nature-inspired spaces',
+        'Family-Friendly Amenities',
+        'Dedicated children’s play area',
+        'Recreation park for families',
+        'Safe, secure community environment'
       ],
       images: [
         '/Amaiya2.jpeg',
@@ -97,15 +105,19 @@ async function main() {
       bathrooms: 2,
       sizeSqm: 110,
       amenities: [
-        'Landscaped Park',
-        'Heated Pool',
-        'Gym',
-        'Clubhouse',
-        'BBQ Deck',
-        'Jogging Track',
-        'Kids Play Area',
-        'Multi-Sports Court',
-        'Security'
+        'Semi-Olympic heated swimming pool (one of the largest in Nairobi)',
+        'Fully equipped residents-only gym',
+        'Expansive clubhouse with BBQ deck',
+        'Multi-purpose sports court',
+        'Outdoor & Green Living',
+        '1-acre landscaped park with botanical gardens',
+        'Private 300m jogging & walking track',
+        'Beautifully landscaped green spaces for relaxation',
+        'Outdoor seating and nature-inspired spaces',
+        'Family-Friendly Amenities',
+        'Dedicated children’s play area',
+        'Recreation park for families',
+        'Safe, secure community environment'
       ],
       images: [
         '/Amaiya3.jpeg',
@@ -126,15 +138,19 @@ async function main() {
       bathrooms: 2,
       sizeSqm: 122,
       amenities: [
-        'Landscaped Park',
-        'Heated Pool',
-        'Gym',
-        'Clubhouse',
-        'BBQ Deck',
-        'Jogging Track',
-        'Kids Play Area',
-        'Multi-Sports Court',
-        'Security'
+        'Semi-Olympic heated swimming pool (one of the largest in Nairobi)',
+        'Fully equipped residents-only gym',
+        'Expansive clubhouse with BBQ deck',
+        'Multi-purpose sports court',
+        'Outdoor & Green Living',
+        '1-acre landscaped park with botanical gardens',
+        'Private 300m jogging & walking track',
+        'Beautifully landscaped green spaces for relaxation',
+        'Outdoor seating and nature-inspired spaces',
+        'Family-Friendly Amenities',
+        'Dedicated children’s play area',
+        'Recreation park for families',
+        'Safe, secure community environment'
       ],
       images: [
         '/Amaiya4.jpeg',
@@ -262,7 +278,15 @@ async function main() {
       bedrooms: 1,
       bathrooms: 1,
       sizeSqm: 41,
-      amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
+      amenities: [
+        'Fully equipped gym & fitness center',
+        'Central clubhouse (with social and relaxation spaces)',
+        'Co-working spaces (ideal for remote work & professionals)',
+        'Two swimming pools (family & leisure)',
+        'Landscaped gardens & outdoor lounges',
+        'Jogging and cycling tracks',
+        'Dedicated children’s play areas'
+      ],
       images: [
         '/Lulu1.jpeg',
         '/Lulu1.1.jpeg',
@@ -281,7 +305,15 @@ async function main() {
       bedrooms: 1,
       bathrooms: 1,
       sizeSqm: 50,
-      amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
+      amenities: [
+        'Fully equipped gym & fitness center',
+        'Central clubhouse (with social and relaxation spaces)',
+        'Co-working spaces (ideal for remote work & professionals)',
+        'Two swimming pools (family & leisure)',
+        'Landscaped gardens & outdoor lounges',
+        'Jogging and cycling tracks',
+        'Dedicated children’s play areas'
+      ],
       images: [
         '/Lulu1.1.jpeg',
         '/Lulu1.2.jpeg',
@@ -300,7 +332,15 @@ async function main() {
       bedrooms: 2,
       bathrooms: 2,
       sizeSqm: 73,
-      amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
+      amenities: [
+        'Fully equipped gym & fitness center',
+        'Central clubhouse (with social and relaxation spaces)',
+        'Co-working spaces (ideal for remote work & professionals)',
+        'Two swimming pools (family & leisure)',
+        'Landscaped gardens & outdoor lounges',
+        'Jogging and cycling tracks',
+        'Dedicated children’s play areas'
+      ],
       images: [
         '/Lulu1.2.jpeg',
         '/Lulu1.jpeg',
@@ -319,7 +359,15 @@ async function main() {
       bedrooms: 3,
       bathrooms: 2,
       sizeSqm: 102,
-      amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
+      amenities: [
+        'Fully equipped gym & fitness center',
+        'Central clubhouse (with social and relaxation spaces)',
+        'Co-working spaces (ideal for remote work & professionals)',
+        'Two swimming pools (family & leisure)',
+        'Landscaped gardens & outdoor lounges',
+        'Jogging and cycling tracks',
+        'Dedicated children’s play areas'
+      ],
       images: [
         '/Lulu1.jpeg',
         '/Lulu1.2.jpeg',

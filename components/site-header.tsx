@@ -30,6 +30,7 @@ const propertyLocations = [
   'Tigoni',
   'Thika Road',
   'Kroad',
+  'Westlands',
   'Diani',
   'Vipingo',
   'Malindi',

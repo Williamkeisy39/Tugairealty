@@ -67,7 +67,7 @@ export default function TermsPage() {
         <p>These Terms are governed by the laws of the Republic of Kenya. Any disputes shall be subject to the exclusive jurisdiction of the courts of Kenya.</p>
 
         <h2 className="text-lg font-semibold text-ink-900">11. Contact</h2>
-        <p>For questions about these Terms, contact us at <a href="mailto:hello@tugairealtors.com" className="text-emerald-700 hover:underline">hello@tugairealtors.com</a>.</p>
+        <p>For questions about these Terms, contact us at <a href="mailto:info@tugairealtors.com" className="text-emerald-700 hover:underline">info@tugairealtors.com</a>.</p>
       </div>
       </div>
       </div>

@@ -253,7 +253,7 @@ export default async function HomePage() {
 
         <div className="scroll-reveal-right relative mx-auto max-w-3xl border border-white/25 bg-white/70 px-6 py-8 text-center backdrop-blur-sm sm:px-10">
           <p className="text-sm uppercase tracking-[0.35em] text-[#145b36]">04 — Why Work With</p>
-          <h2 className="mt-3 text-4xl font-semibold uppercase tracking-[0.04em] text-[#145b36] sm:text-5xl">The Wolf</h2>
+          <h2 className="mt-3 text-4xl font-semibold uppercase tracking-[0.04em] text-[#145b36] sm:text-5xl">Tugai Realtors</h2>
         </div>
 
         <div className="mt-12 grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
