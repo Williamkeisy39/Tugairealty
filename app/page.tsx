@@ -108,7 +108,6 @@ export default async function HomePage() {
                 loop
                 pauseDuration={1500}
                 className="inline-flex items-center"
-                cursorClassName="ml-1 text-white/70"
               />
             </h1>
             <p className="hero-reveal-up hero-delay-2 mt-6 text-base text-white/90 drop-shadow-[0_8px_22px_rgba(0,0,0,0.8)] sm:text-lg">

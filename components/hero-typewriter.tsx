@@ -6,27 +6,20 @@ type HeroTypewriterProps = {
   text?: string;
   texts?: string[];
   startDelay?: number;
-  typingSpeed?: number;
   pauseDuration?: number;
   loop?: boolean;
-  cursorBlinkSpeed?: number;
   className?: string;
-  cursorClassName?: string;
 };
 
 export default function HeroTypewriter({
   text,
   texts,
   startDelay = 150,
-  typingSpeed = 55,
   pauseDuration = 1400,
   loop = false,
-  cursorBlinkSpeed = 500,
-  className,
-  cursorClassName
+  className
 }: HeroTypewriterProps) {
-  const [displayed, setDisplayed] = useState('');
-  const [cursorVisible, setCursorVisible] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
   const phrases = useMemo(() => (texts && texts.length ? texts : [text ?? '']), [texts, text]);
 
@@ -39,62 +32,36 @@ export default function HeroTypewriter({
   }, []);
 
   useEffect(() => {
-    if (reduceMotion) {
-      setDisplayed(phrases[0] ?? '');
-      return;
-    }
+    if (reduceMotion) return;
+    if (phrases.length <= 1) return;
 
-    let cancelled = false;
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-    const typePhrase = (phraseIndex: number) => {
-      if (cancelled) return;
-      const phrase = phrases[phraseIndex] ?? '';
-      let index = 0;
-      setDisplayed('');
-
-      const step = () => {
-        if (cancelled) return;
-        index += 1;
-        setDisplayed(phrase.slice(0, index));
-        if (index < phrase.length) {
-          timeoutId = setTimeout(step, typingSpeed);
-          return;
-        }
-
-        const shouldContinue = loop || phraseIndex < phrases.length - 1;
-        if (shouldContinue) {
-          timeoutId = setTimeout(() => {
-            const nextIndex = (phraseIndex + 1) % phrases.length;
-            typePhrase(nextIndex);
-          }, pauseDuration);
-        }
-      };
-
-      timeoutId = setTimeout(step, typingSpeed);
-    };
-
-    timeoutId = setTimeout(() => typePhrase(0), startDelay);
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+    const timeoutId = setTimeout(() => {
+      intervalId = setInterval(() => {
+        setActiveIndex((prev) => {
+          const next = prev + 1;
+          if (loop) return next % phrases.length;
+          return next >= phrases.length ? prev : next;
+        });
+      }, pauseDuration);
+    }, startDelay);
 
     return () => {
-      cancelled = true;
-      if (timeoutId) clearTimeout(timeoutId);
+      clearTimeout(timeoutId);
+      if (intervalId) clearInterval(intervalId);
     };
-  }, [phrases, startDelay, typingSpeed, pauseDuration, loop, reduceMotion]);
+  }, [phrases, startDelay, pauseDuration, loop, reduceMotion]);
 
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setCursorVisible((prev) => !prev);
-    }, cursorBlinkSpeed);
-
-    return () => clearInterval(cursorInterval);
-  }, [cursorBlinkSpeed]);
+  const currentPhrase = phrases[activeIndex] ?? '';
 
   return (
     <span className={className} aria-label={phrases.filter(Boolean).join(' ')}>
-      <span aria-hidden="true">{displayed}</span>
-      <span aria-hidden="true" className={cursorClassName}>
-        {cursorVisible ? '|' : '\u00A0'}
+      <span
+        key={`${currentPhrase}-${activeIndex}`}
+        aria-hidden="true"
+        className={reduceMotion ? 'inline-block' : 'hero-title-slide-left inline-block'}
+      >
+        {currentPhrase}
       </span>
     </span>
   );
