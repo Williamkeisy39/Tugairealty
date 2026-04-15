@@ -155,7 +155,7 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/25 to-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/22 via-black/18 to-black/42" />
         <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-10 pt-28 text-center">
           <p className="scroll-reveal text-xs uppercase tracking-[0.4em] text-white/70">Properties</p>
           <h1 className="scroll-reveal mt-3 text-3xl font-light text-white sm:text-5xl md:text-6xl">Residences Available Now</h1>

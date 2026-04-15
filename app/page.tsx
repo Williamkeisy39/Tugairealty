@@ -103,7 +103,7 @@ export default async function HomePage() {
             </div>
           ))}
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(20,91,54,0.32),rgba(7,15,10,0.62)_55%,rgba(7,15,10,0.72))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(20,91,54,0.22),rgba(7,15,10,0.45)_55%,rgba(7,15,10,0.55))]" />
         <div className="relative mx-auto max-w-[96rem] px-5 pt-28 text-white sm:px-6 md:pt-24 lg:pt-28">
           <div className="max-w-3xl">
             <p className="hero-reveal-up text-xs uppercase tracking-[0.4em] text-emerald-100/90">Your Exclusive Property Partner</p>
@@ -111,7 +111,7 @@ export default async function HomePage() {
               <HeroTypewriter
                 texts={[
                   'Find the home you deserve.',
-                  'Own the address you&apos;ve imagined.'
+                  'Luxury living awaits you.'
                 ]}
                 loop
                 pauseDuration={1500}

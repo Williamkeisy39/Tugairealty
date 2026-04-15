@@ -68,7 +68,7 @@ export default function ContactPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/20 to-black/45" />
         <div className="relative z-10 mx-auto max-w-3xl px-6 pt-28 pb-12 text-center">
           <p className="scroll-reveal text-xs uppercase tracking-[0.4em] text-white/70">Get In Touch</p>
           <h1 className="scroll-reveal mt-3 text-3xl font-light text-white sm:text-5xl md:text-6xl">Contact Us</h1>
