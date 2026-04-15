@@ -66,7 +66,7 @@ async function main() {
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 1,
       bathrooms: 2,
-      sizeSqm: 68,
+      sizeSqm: 73,
       amenities: [
         'Landscaped Park',
         'Heated Pool',
@@ -124,7 +124,7 @@ async function main() {
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 3,
       bathrooms: 2,
-      sizeSqm: 135,
+      sizeSqm: 122,
       amenities: [
         'Landscaped Park',
         'Heated Pool',
@@ -261,7 +261,7 @@ async function main() {
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 1,
       bathrooms: 1,
-      sizeSqm: 0,
+      sizeSqm: 41,
       amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
       images: [
         '/Lulu1.jpeg',
@@ -280,7 +280,7 @@ async function main() {
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 1,
       bathrooms: 1,
-      sizeSqm: 0,
+      sizeSqm: 50,
       amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
       images: [
         '/Lulu1.1.jpeg',
@@ -299,7 +299,7 @@ async function main() {
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 2,
       bathrooms: 2,
-      sizeSqm: 0,
+      sizeSqm: 73,
       amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
       images: [
         '/Lulu1.2.jpeg',
@@ -318,7 +318,7 @@ async function main() {
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 3,
       bathrooms: 2,
-      sizeSqm: 0,
+      sizeSqm: 102,
       amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
       images: [
         '/Lulu1.jpeg',

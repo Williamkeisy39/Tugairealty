@@ -34,7 +34,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-ink-600">{property.location}</p>
           <h3 className="mt-2 text-xl font-semibold text-ink-950">{property.title}</h3>
-          <p className="text-lg text-ink-900">{formatCurrency(property.price, property.currency)}</p>
+          <p className="text-lg text-ink-900">From {formatCurrency(property.price, property.currency)}</p>
         </div>
         <div className="mt-auto flex items-center justify-between text-sm text-ink-700">
           <div className="flex items-center gap-3">
@@ -44,7 +44,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             <span className="inline-flex items-center gap-1">
               <Bath size={16} /> {property.bathrooms} ba
             </span>
-            {property.sizeSqm && <span>{property.sizeSqm} sqm</span>}
+            {(property.sizeSqm ?? 0) > 0 && <span>From {property.sizeSqm} sqm</span>}
           </div>
           <span className="transition-transform duration-300 group-hover:translate-x-1">
             <MoveRight size={20} />
