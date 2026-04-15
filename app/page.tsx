@@ -37,8 +37,7 @@ export default async function HomePage() {
     {
       title: 'Residential Apartments',
       href: '/properties?type=apartments',
-      image:
-        'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1600&q=80'
+      image: '/Homepage1.jpeg'
     }
   ];
   const whyWorkStats = [
@@ -98,8 +97,8 @@ export default async function HomePage() {
             </div>
           ))}
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(20,91,54,0.18),rgba(7,15,10,0.42)_55%,rgba(7,15,10,0.55))]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/45" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(20,91,54,0.14),rgba(7,15,10,0.32)_55%,rgba(7,15,10,0.45))]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/12 via-black/22 to-black/35" />
         <div className="relative mx-auto max-w-[96rem] px-5 pt-28 text-white sm:px-6 md:pt-24 lg:pt-28">
           <div className="max-w-3xl">
             <p className="hero-reveal-up text-xs uppercase tracking-[0.4em] text-emerald-100/95 drop-shadow-[0_4px_14px_rgba(0,0,0,0.75)]">Your Exclusive Property Partner</p>
