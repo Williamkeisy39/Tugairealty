@@ -88,7 +88,7 @@ export default async function PropertyDetailPage({ params }: PropertyPageProps) 
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-black/15" />
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-10 pt-32">
           <p className="scroll-reveal text-xs uppercase tracking-[0.4em] text-white/70">{property.location}</p>
           <h1 className="scroll-reveal mt-3 text-4xl font-light text-white md:text-5xl">{property.title}</h1>
