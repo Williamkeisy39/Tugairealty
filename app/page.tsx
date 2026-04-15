@@ -14,12 +14,7 @@ export default async function HomePage() {
     prisma.property.findMany({ orderBy: { createdAt: 'desc' }, take: 6 })
   ]);
 
-  const heroImages = [
-    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=80',
-    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2200&q=80',
-    'https://images.unsplash.com/photo-1600607687644-c7f34b5d0c32?auto=format&fit=crop&w=2200&q=80',
-    'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=2200&q=80'
-  ];
+  const heroImages = ['/Homepage1.jpeg', '/Homepage2.jpeg', '/Homepage3.jpeg', '/Homepage4.jpeg'];
   const exploreCategories = [
     {
       title: 'Residential Homes',
@@ -103,11 +98,12 @@ export default async function HomePage() {
             </div>
           ))}
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(20,91,54,0.22),rgba(7,15,10,0.45)_55%,rgba(7,15,10,0.55))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(20,91,54,0.22),rgba(7,15,10,0.6)_55%,rgba(7,15,10,0.78))]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/45 to-black/65" />
         <div className="relative mx-auto max-w-[96rem] px-5 pt-28 text-white sm:px-6 md:pt-24 lg:pt-28">
           <div className="max-w-3xl">
-            <p className="hero-reveal-up text-xs uppercase tracking-[0.4em] text-emerald-100/90">Your Exclusive Property Partner</p>
-            <h1 className="hero-reveal-up hero-delay-1 mt-5 font-serif text-3xl leading-tight sm:text-5xl md:text-6xl">
+            <p className="hero-reveal-up text-xs uppercase tracking-[0.4em] text-emerald-100/95 drop-shadow-[0_4px_14px_rgba(0,0,0,0.75)]">Your Exclusive Property Partner</p>
+            <h1 className="hero-reveal-up hero-delay-1 mt-5 font-serif text-3xl leading-tight drop-shadow-[0_10px_30px_rgba(0,0,0,0.75)] sm:text-5xl md:text-6xl">
               <HeroTypewriter
                 texts={[
                   'Find the home you deserve.',
@@ -119,7 +115,7 @@ export default async function HomePage() {
                 cursorClassName="ml-1 text-white/70"
               />
             </h1>
-            <p className="hero-reveal-up hero-delay-2 mt-6 text-base text-white/85 sm:text-lg">
+            <p className="hero-reveal-up hero-delay-2 mt-6 text-base text-white/90 drop-shadow-[0_8px_22px_rgba(0,0,0,0.8)] sm:text-lg">
               Tugai Realtors connects you to elite residences and high-yield investments across Nairobi.
             </p>
             <div className="mt-8 flex flex-wrap gap-4 text-sm">

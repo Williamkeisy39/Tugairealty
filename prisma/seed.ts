@@ -200,6 +200,190 @@ async function main() {
       ],
       featured: true,
       status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: 'GTC Residence 1 Bedroom Apartment in Westlands',
+      description:
+        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors.',
+      price: 222000,
+      currency: 'USD',
+      location: 'Westlands, Nairobi',
+      bedrooms: 1,
+      bathrooms: 1,
+      sizeSqm: 65,
+      amenities: [
+        'Shopping Mall Access',
+        'Restaurants & Cafés',
+        'Concierge',
+        'Gym',
+        'Pool',
+        'Security',
+        'Parking'
+      ],
+      images: [
+        '/Gtc%201.jpeg',
+        '/GTC%202.jpeg',
+        '/GTC%203.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: 'GTC Residence 2 Bedroom Apartment in Westlands',
+      description:
+        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors.',
+      price: 278000,
+      currency: 'USD',
+      location: 'Westlands, Nairobi',
+      bedrooms: 2,
+      bathrooms: 2,
+      sizeSqm: 95,
+      amenities: [
+        'Shopping Mall Access',
+        'Restaurants & Cafés',
+        'Concierge',
+        'Gym',
+        'Pool',
+        'Security',
+        'Parking'
+      ],
+      images: [
+        '/GTC%202.jpeg',
+        '/Gtc%201.jpeg',
+        '/GTC%203.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: 'GTC Residence 3 Bedroom Apartment in Westlands',
+      description:
+        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors.',
+      price: 347000,
+      currency: 'USD',
+      location: 'Westlands, Nairobi',
+      bedrooms: 3,
+      bathrooms: 3,
+      sizeSqm: 140,
+      amenities: [
+        'Shopping Mall Access',
+        'Restaurants & Cafés',
+        'Concierge',
+        'Gym',
+        'Pool',
+        'Security',
+        'Parking'
+      ],
+      images: [
+        '/GTC%203.jpeg',
+        '/GTC%202.jpeg',
+        '/Gtc%201.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: 'GTC Residence 4 Bedroom Penthouse in Westlands',
+      description:
+        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors.',
+      price: 1130000,
+      currency: 'USD',
+      location: 'Westlands, Nairobi',
+      bedrooms: 4,
+      bathrooms: 4,
+      sizeSqm: 320,
+      amenities: [
+        'Shopping Mall Access',
+        'Restaurants & Cafés',
+        'Concierge',
+        'Gym',
+        'Pool',
+        'Security',
+        'Parking'
+      ],
+      images: [
+        '/Gtc%201.jpeg',
+        '/GTC%203.jpeg',
+        '/GTC%202.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: '237 Lulu Mini 1 BHK at Garden City',
+      description:
+        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. Pricing and availability: inquire.',
+      price: 5900000,
+      currency: 'KES',
+      location: 'Garden City, Thika Road, Nairobi',
+      bedrooms: 1,
+      bathrooms: 1,
+      sizeSqm: 0,
+      amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
+      images: [
+        '/Lulu1.jpeg',
+        '/Lulu1.1.jpeg',
+        '/Lulu1.2.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: '237 Lulu 1 BHK at Garden City',
+      description:
+        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. Pricing and availability: inquire.',
+      price: 7200000,
+      currency: 'KES',
+      location: 'Garden City, Thika Road, Nairobi',
+      bedrooms: 1,
+      bathrooms: 1,
+      sizeSqm: 0,
+      amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
+      images: [
+        '/Lulu1.1.jpeg',
+        '/Lulu1.2.jpeg',
+        '/Lulu1.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: '237 Lulu 2 BHK at Garden City',
+      description:
+        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. Pricing and availability: inquire.',
+      price: 9500000,
+      currency: 'KES',
+      location: 'Garden City, Thika Road, Nairobi',
+      bedrooms: 2,
+      bathrooms: 2,
+      sizeSqm: 0,
+      amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
+      images: [
+        '/Lulu1.2.jpeg',
+        '/Lulu1.jpeg',
+        '/Lulu1.1.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: '237 Lulu 3 BHK at Garden City',
+      description:
+        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. Pricing and availability: inquire.',
+      price: 12500000,
+      currency: 'KES',
+      location: 'Garden City, Thika Road, Nairobi',
+      bedrooms: 3,
+      bathrooms: 2,
+      sizeSqm: 0,
+      amenities: ['Smart Living', 'Garden City Access', 'Security', 'Parking'],
+      images: [
+        '/Lulu1.jpeg',
+        '/Lulu1.2.jpeg',
+        '/Lulu1.1.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
     }
   ];
 

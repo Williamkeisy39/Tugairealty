@@ -1,4 +1,8 @@
 export function formatCurrency(value: number, currency = 'KES') {
+  if (!Number.isFinite(value) || value <= 0) {
+    return 'Inquire';
+  }
+
   return new Intl.NumberFormat('en-KE', {
     style: 'currency',
     currency,
