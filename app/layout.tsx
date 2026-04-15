@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   description:
     'Discover curated luxury properties across Nairobi. Refined experiences, thoughtful design, and personalized service.',
   metadataBase: new URL('https://tugairealtors.com'),
+  icons: {
+    icon: '/tugss.png'
+  },
   openGraph: {
     title: 'Tugai Realtors',
     description: 'Curated luxury real estate in Nairobi',
