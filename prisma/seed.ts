@@ -29,66 +29,9 @@ async function main() {
 
   const items: SeedProperty[] = [
     {
-      title: 'Modern 4 Bedroom Villa in Karen',
-      description:
-        'A refined contemporary villa with generous natural light, clean finishes, and a private garden. Designed for quiet luxury living with effortless indoor-outdoor flow.',
-      price: 125000000,
-      currency: 'KES',
-      location: 'Karen, Nairobi',
-      bedrooms: 4,
-      bathrooms: 4,
-      sizeSqm: 420,
-      amenities: ['Garden', 'DSQ', 'Borehole', 'Security', 'Parking'],
-      images: [
-        'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
-        'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1600&q=80',
-        'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=80'
-      ],
-      featured: true,
-      status: PropertyStatus.AVAILABLE
-    },
-    {
-      title: 'Luxury 2 Bedroom Apartment with Skyline Views',
-      description:
-        'An elevated apartment with panoramic city views, a calm neutral palette, and premium fixtures. Ideal for executives seeking a central, secure address.',
-      price: 28000000,
-      currency: 'KES',
-      location: 'Westlands, Nairobi',
-      bedrooms: 2,
-      bathrooms: 2,
-      sizeSqm: 135,
-      amenities: ['Gym', 'Pool', 'Lift', 'Security', 'Backup Generator'],
-      images: [
-        'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1600&q=80',
-        'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1600&q=80',
-        'https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1600&q=80'
-      ],
-      featured: true,
-      status: PropertyStatus.AVAILABLE
-    },
-    {
-      title: 'Elegant 3 Bedroom Townhouse in Runda',
-      description:
-        'Tastefully designed townhouse in a leafy compound. Practical layout, soft finishes, and serene surroundings for family living.',
-      price: 65000000,
-      currency: 'KES',
-      location: 'Runda, Nairobi',
-      bedrooms: 3,
-      bathrooms: 3,
-      sizeSqm: 260,
-      amenities: ['Garden', 'Security', 'Parking', 'DSQ'],
-      images: [
-        'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=80',
-        'https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1600&q=80',
-        'https://images.unsplash.com/photo-1502005097973-6a7082348e28?auto=format&fit=crop&w=1600&q=80'
-      ],
-      featured: false,
-      status: PropertyStatus.AVAILABLE
-    },
-    {
       title: 'Amaiya 1 Bedroom Apartment at Garden City',
       description:
-        'Amaiya by Mi Vida Homes within Garden City Mall offers modern one-bedroom living with abundant natural light, contemporary layouts, and balcony views. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road.',
+        'Amaiya by Mi Vida Homes within Garden City Mall offers modern one-bedroom living with abundant natural light, contemporary layouts, and balcony views. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road. From KES 8.5M.',
       price: 8500000,
       currency: 'KES',
       location: 'Garden City, Thika Road, Nairobi',
@@ -117,8 +60,8 @@ async function main() {
     {
       title: 'Amaiya 1 Bedroom Duplex at Garden City',
       description:
-        'Amaiya by Mi Vida Homes within Garden City Mall offers modern one-bedroom duplex living with double-volume spaces, refined finishes, and balcony views. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road.',
-      price: 9900000,
+        'Amaiya by Mi Vida Homes within Garden City Mall offers modern one-bedroom duplex living with double-volume spaces, refined finishes, and balcony views. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road. From KES 10M.',
+      price: 10000000,
       currency: 'KES',
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 1,
@@ -146,8 +89,8 @@ async function main() {
     {
       title: 'Amaiya 2 Bedroom Duplex at Garden City',
       description:
-        'Amaiya by Mi Vida Homes within Garden City Mall offers modern two-bedroom duplex living with spacious layouts, natural lighting, and private balconies. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road.',
-      price: 15000000,
+        'Amaiya by Mi Vida Homes within Garden City Mall offers modern two-bedroom duplex living with spacious layouts, natural lighting, and private balconies. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road. From KES 15.5M.',
+      price: 15500000,
       currency: 'KES',
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 2,
@@ -175,8 +118,8 @@ async function main() {
     {
       title: 'Amaiya 3 Bedroom Apartment at Garden City',
       description:
-        'Amaiya by Mi Vida Homes within Garden City Mall offers modern three-bedroom apartments with expansive layouts, generous light, and balcony views. Ideal for families seeking lifestyle convenience along Thika Road.',
-      price: 17000000,
+        'Amaiya by Mi Vida Homes within Garden City Mall offers modern three-bedroom apartments with expansive layouts, generous light, and balcony views. Ideal for families seeking lifestyle convenience along Thika Road. From KES 17.5M.',
+      price: 17500000,
       currency: 'KES',
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 3,
@@ -204,7 +147,7 @@ async function main() {
     {
       title: 'GTC Residence 1 Bedroom Apartment in Westlands',
       description:
-        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors.',
+        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors. From USD 222K.',
       price: 222000,
       currency: 'USD',
       location: 'Westlands, Nairobi',
@@ -231,7 +174,7 @@ async function main() {
     {
       title: 'GTC Residence 2 Bedroom Apartment in Westlands',
       description:
-        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors.',
+        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors. From USD 278K.',
       price: 278000,
       currency: 'USD',
       location: 'Westlands, Nairobi',
@@ -258,7 +201,7 @@ async function main() {
     {
       title: 'GTC Residence 3 Bedroom Apartment in Westlands',
       description:
-        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors.',
+        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors. From USD 347K.',
       price: 347000,
       currency: 'USD',
       location: 'Westlands, Nairobi',
@@ -285,7 +228,7 @@ async function main() {
     {
       title: 'GTC Residence 4 Bedroom Penthouse in Westlands',
       description:
-        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors.',
+        'Step into the vibrant Westlands neighborhood and experience a lifestyle like no other at GTC Residence Apartments. Positioned among stylish restaurants, cafés, and a modern shopping mall, GTC delivers unmatched comfort, convenience, and elegance for both end users and investors. From USD 1.13M.',
       price: 1130000,
       currency: 'USD',
       location: 'Westlands, Nairobi',
@@ -312,8 +255,8 @@ async function main() {
     {
       title: '237 Lulu Mini 1 BHK at Garden City',
       description:
-        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. Pricing and availability: inquire.',
-      price: 5900000,
+        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. From KES 4.4M.',
+      price: 4400000,
       currency: 'KES',
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 1,
@@ -331,8 +274,8 @@ async function main() {
     {
       title: '237 Lulu 1 BHK at Garden City',
       description:
-        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. Pricing and availability: inquire.',
-      price: 7200000,
+        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. From KES 5.7M.',
+      price: 5700000,
       currency: 'KES',
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 1,
@@ -350,8 +293,8 @@ async function main() {
     {
       title: '237 Lulu 2 BHK at Garden City',
       description:
-        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. Pricing and availability: inquire.',
-      price: 9500000,
+        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. From KES 7.65M.',
+      price: 7650000,
       currency: 'KES',
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 2,
@@ -369,8 +312,8 @@ async function main() {
     {
       title: '237 Lulu 3 BHK at Garden City',
       description:
-        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. Pricing and availability: inquire.',
-      price: 12500000,
+        'Welcome to 237 Lulu — the next chapter of living at Garden City, Thika Road, Nairobi. Smart, affordable, and high-yield investment apartments in the heart of Garden City. Choose from Mini 1, 1, 2, and 3 BHK units where quality meets convenience. From KES 10.7M.',
+      price: 10700000,
       currency: 'KES',
       location: 'Garden City, Thika Road, Nairobi',
       bedrooms: 3,

@@ -48,28 +48,25 @@ export default async function HomePage() {
   ];
   const trendingListings = [
     {
-      title: 'Two Bedrooms',
-      size: '88 sqm',
-      description:
-        'A precisely considered two-bedroom layout designed for modern living without compromise. Efficient in footprint yet generous in feel.',
-      image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80',
-      planImage: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80'
+      title: 'Amaiya 2 Bedroom Duplex',
+      size: '110 sqm • 2 BHK Duplex',
+      description: 'Garden City duplex living with modern finishes and balcony views. From KES 15.5M.',
+      image: '/Amaiya3.jpeg',
+      planImage: '/Amaiya%201b%20interior1.4.jpeg'
     },
     {
-      title: 'Signature Penthouse',
-      size: '162 sqm',
-      description:
-        'Open-plan luxury with skyline-facing living areas, refined finishes, and a calm flow for elevated city life and private hosting.',
-      image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80',
-      planImage: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=900&q=80'
+      title: 'GTC Residence 3 Bedroom',
+      size: '140 sqm • Westlands',
+      description: 'Prime Westlands address with luxury amenities and mall access. From USD 347K.',
+      image: '/GTC%203.jpeg',
+      planImage: '/GTC%202.jpeg'
     },
     {
-      title: 'Garden Duplex',
-      size: '140 sqm',
-      description:
-        'A balanced indoor-outdoor plan with bright family zones, clean circulation, and contemporary detailing tailored for relaxed luxury.',
-      image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=80',
-      planImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80'
+      title: '237 Lulu 3 BHK',
+      size: '3 BHK • Garden City',
+      description: 'Smart, high-yield apartments in Garden City. From KES 10.7M.',
+      image: '/Lulu1.jpeg',
+      planImage: '/Lulu1.2.jpeg'
     }
   ];
 
