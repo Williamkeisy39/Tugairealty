@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import PropertyCard from '@/components/property-card';
 import PropertySearch from '@/components/property-search';
 import TrendingListingsCarousel from '@/components/trending-listings-carousel';
+import HeroTypewriter from '@/components/hero-typewriter';
 
 export const dynamic = 'force-dynamic';
 
@@ -106,7 +107,18 @@ export default async function HomePage() {
         <div className="relative mx-auto max-w-[96rem] px-5 pt-28 text-white sm:px-6 md:pt-24 lg:pt-28">
           <div className="max-w-3xl">
             <p className="hero-reveal-up text-xs uppercase tracking-[0.4em] text-emerald-100/90">Your Exclusive Property Partner</p>
-            <h1 className="hero-reveal-up hero-delay-1 mt-5 font-serif text-3xl leading-tight sm:text-5xl md:text-6xl">Find the home you deserve.</h1>
+            <h1 className="hero-reveal-up hero-delay-1 mt-5 font-serif text-3xl leading-tight sm:text-5xl md:text-6xl">
+              <HeroTypewriter
+                texts={[
+                  'Find the home you deserve.',
+                  'Own the address you&apos;ve imagined.'
+                ]}
+                loop
+                pauseDuration={1500}
+                className="inline-flex items-center"
+                cursorClassName="ml-1 text-white/70"
+              />
+            </h1>
             <p className="hero-reveal-up hero-delay-2 mt-6 text-base text-white/85 sm:text-lg">
               Tugai Realtors connects you to elite residences and high-yield investments across Nairobi.
             </p>
