@@ -12,8 +12,6 @@ function slugify(input: string) {
 }
 
 async function main() {
-  await prisma.property.deleteMany();
-
   type SeedProperty = {
     title: string;
     description: string;
@@ -86,13 +84,133 @@ async function main() {
       ],
       featured: false,
       status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: 'Amaiya 1 Bedroom Apartment at Garden City',
+      description:
+        'Amaiya by Mi Vida Homes within Garden City Mall offers modern one-bedroom living with abundant natural light, contemporary layouts, and balcony views. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road.',
+      price: 8500000,
+      currency: 'KES',
+      location: 'Garden City, Thika Road, Nairobi',
+      bedrooms: 1,
+      bathrooms: 1,
+      sizeSqm: 55,
+      amenities: [
+        'Landscaped Park',
+        'Heated Pool',
+        'Gym',
+        'Clubhouse',
+        'BBQ Deck',
+        'Jogging Track',
+        'Kids Play Area',
+        'Multi-Sports Court',
+        'Security'
+      ],
+      images: [
+        '/Amaiya%201.jpeg',
+        '/Amaiya%201b%20interior.jpeg',
+        '/Amaiya%201b%20interior1.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: 'Amaiya 1 Bedroom Duplex at Garden City',
+      description:
+        'Amaiya by Mi Vida Homes within Garden City Mall offers modern one-bedroom duplex living with double-volume spaces, refined finishes, and balcony views. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road.',
+      price: 9900000,
+      currency: 'KES',
+      location: 'Garden City, Thika Road, Nairobi',
+      bedrooms: 1,
+      bathrooms: 2,
+      sizeSqm: 68,
+      amenities: [
+        'Landscaped Park',
+        'Heated Pool',
+        'Gym',
+        'Clubhouse',
+        'BBQ Deck',
+        'Jogging Track',
+        'Kids Play Area',
+        'Multi-Sports Court',
+        'Security'
+      ],
+      images: [
+        '/Amaiya2.jpeg',
+        '/Amaiya%201b%20interior1.1.jpeg',
+        '/Amaiya%201b%20interior1.2.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: 'Amaiya 2 Bedroom Duplex at Garden City',
+      description:
+        'Amaiya by Mi Vida Homes within Garden City Mall offers modern two-bedroom duplex living with spacious layouts, natural lighting, and private balconies. Ideal for investors or homeowners seeking lifestyle convenience along Thika Road.',
+      price: 15000000,
+      currency: 'KES',
+      location: 'Garden City, Thika Road, Nairobi',
+      bedrooms: 2,
+      bathrooms: 2,
+      sizeSqm: 110,
+      amenities: [
+        'Landscaped Park',
+        'Heated Pool',
+        'Gym',
+        'Clubhouse',
+        'BBQ Deck',
+        'Jogging Track',
+        'Kids Play Area',
+        'Multi-Sports Court',
+        'Security'
+      ],
+      images: [
+        '/Amaiya3.jpeg',
+        '/Amaiya%201b%20interior1.4.jpeg',
+        '/Amaiya%201b%20interior2.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
+    },
+    {
+      title: 'Amaiya 3 Bedroom Apartment at Garden City',
+      description:
+        'Amaiya by Mi Vida Homes within Garden City Mall offers modern three-bedroom apartments with expansive layouts, generous light, and balcony views. Ideal for families seeking lifestyle convenience along Thika Road.',
+      price: 17000000,
+      currency: 'KES',
+      location: 'Garden City, Thika Road, Nairobi',
+      bedrooms: 3,
+      bathrooms: 2,
+      sizeSqm: 135,
+      amenities: [
+        'Landscaped Park',
+        'Heated Pool',
+        'Gym',
+        'Clubhouse',
+        'BBQ Deck',
+        'Jogging Track',
+        'Kids Play Area',
+        'Multi-Sports Court',
+        'Security'
+      ],
+      images: [
+        '/Amaiya4.jpeg',
+        '/Amaiya%201b%20interior2.1.jpeg',
+        '/Amaiya%201b%20interior1.1.jpeg'
+      ],
+      featured: true,
+      status: PropertyStatus.AVAILABLE
     }
   ];
 
   for (const p of items) {
     const slug = slugify(p.title);
-    await prisma.property.create({
-      data: {
+    await prisma.property.upsert({
+      where: { slug },
+      update: {
+        ...p
+      },
+      create: {
         ...p,
         slug
       }
