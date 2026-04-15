@@ -106,7 +106,7 @@ export default async function HomePage() {
                   'Luxury living awaits you.'
                 ]}
                 loop
-                pauseDuration={1500}
+                pauseDuration={4000}
                 className="inline-flex items-center"
               />
             </h1>
