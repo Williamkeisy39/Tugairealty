@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
+import { Toaster } from 'sonner';
 import {
   Home,
   Building2,
@@ -94,6 +95,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <main className={token ? 'p-6' : ''}>
           {children}
         </main>
+        <Toaster position="top-right" richColors />
       </div>
     </div>
   );
