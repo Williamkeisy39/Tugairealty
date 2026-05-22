@@ -25,9 +25,11 @@ export interface AdminProperty {
   status: 'AVAILABLE' | 'PENDING' | 'SOLD';
 }
 
+type ActionState = { error?: string } | undefined;
+
 interface PropertyFormProps {
   property?: AdminProperty;
-  action: (formData: FormData) => Promise<{ error?: string } | void>;
+  action: (prevState: ActionState, formData: FormData) => Promise<ActionState>;
   submitLabel: string;
 }
 

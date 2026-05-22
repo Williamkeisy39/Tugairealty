@@ -5,7 +5,7 @@ import PropertyForm from '@/components/admin/property-form';
 import { prisma } from '@/lib/prisma';
 
 export default function NewPropertyPage() {
-  async function createAction(formData: FormData) {
+  async function createAction(_: { error?: string } | undefined, formData: FormData) {
     'use server';
 
     const token = cookies().get('admin_token')?.value;

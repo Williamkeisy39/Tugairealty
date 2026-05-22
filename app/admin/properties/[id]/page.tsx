@@ -17,7 +17,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
   const property = await prisma.property.findUnique({ where: { id: params.id } });
   if (!property) redirect('/admin');
 
-  async function updateAction(formData: FormData) {
+  async function updateAction(_: { error?: string } | undefined, formData: FormData) {
     'use server';
 
     const currentToken = cookies().get('admin_token')?.value;
