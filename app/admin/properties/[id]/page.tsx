@@ -22,7 +22,9 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
     'use server';
 
     const currentToken = cookies().get('admin_token')?.value;
-    if (!currentToken) redirect('/admin/login');
+    if (!currentToken) {
+      return { error: 'Session expired. Please log in again.' };
+    }
 
     const amenitiesRaw = String(formData.get('amenities') || '');
     const imagesRaw = String(formData.get('images') || '');
@@ -48,7 +50,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
       });
 
       revalidatePath('/admin');
-      redirect('/admin');
+      return { success: true };
     } catch (error: any) {
       return { error: error.message || 'Failed to update property. Images may be too large - try using image URLs instead.' };
     }

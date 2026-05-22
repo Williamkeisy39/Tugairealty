@@ -14,11 +14,20 @@ export default function PropertyGallery({ images }: PropertyGalleryProps) {
   if (!images.length) return null;
 
   const mainImage = images[active] ?? images[0];
+  const mainIsData = mainImage.startsWith('data:');
 
   return (
     <div className="space-y-4">
       <div className="relative h-[420px] w-full overflow-hidden rounded-3xl">
-        <Image src={mainImage} alt="Property image" fill className="object-cover" sizes="(min-width: 1024px) 800px, 100vw" priority />
+        <Image
+          src={mainImage}
+          alt="Property image"
+          fill
+          className="object-cover"
+          sizes="(min-width: 1024px) 800px, 100vw"
+          priority
+          unoptimized={mainIsData}
+        />
       </div>
 
       <div className="grid grid-cols-4 gap-3">
@@ -32,7 +41,14 @@ export default function PropertyGallery({ images }: PropertyGalleryProps) {
             )}
             onClick={() => setActive(index)}
           >
-            <Image src={image} alt="Gallery thumbnail" fill className="object-cover" sizes="200px" />
+            <Image
+              src={image}
+              alt="Gallery thumbnail"
+              fill
+              className="object-cover"
+              sizes="200px"
+              unoptimized={image.startsWith('data:')}
+            />
           </button>
         ))}
       </div>

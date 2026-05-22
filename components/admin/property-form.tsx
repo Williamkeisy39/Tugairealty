@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -27,7 +29,7 @@ export interface AdminProperty {
   status: 'AVAILABLE' | 'PENDING' | 'SOLD';
 }
 
-type ActionState = { error?: string } | undefined;
+type ActionState = { error?: string; success?: boolean } | undefined;
 
 interface PropertyFormProps {
   property?: AdminProperty;
@@ -37,9 +39,21 @@ interface PropertyFormProps {
 
 export default function PropertyForm({ property, action, submitLabel }: PropertyFormProps) {
   const [state, formAction] = useFormState(action, undefined);
+  const router = useRouter();
   const [titleValue, setTitleValue] = useState(property?.title || '');
   const [slugValue, setSlugValue] = useState(property?.slug || '');
   const [slugDirty, setSlugDirty] = useState(Boolean(property?.slug));
+
+  useEffect(() => {
+    if (state?.success) {
+      toast.success('Property saved successfully.');
+      router.push('/admin');
+      router.refresh();
+    }
+    if (state?.error) {
+      toast.error(state.error);
+    }
+  }, [router, state?.error, state?.success]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nextTitle = event.target.value;

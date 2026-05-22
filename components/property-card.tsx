@@ -10,6 +10,7 @@ interface PropertyCardProps {
 
 export default function PropertyCard({ property }: PropertyCardProps) {
   const cover = property.images[0] ?? 'https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1200&q=80';
+  const coverIsData = cover.startsWith('data:');
 
   return (
     <Link
@@ -23,6 +24,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           fill
           className="object-cover transition duration-700 ease-out group-hover:scale-105"
           sizes="(min-width: 1280px) 400px, 100vw"
+          unoptimized={coverIsData}
         />
         {property.featured && (
           <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-ink-900">

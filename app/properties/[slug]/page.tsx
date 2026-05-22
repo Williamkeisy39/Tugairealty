@@ -87,6 +87,7 @@ export default async function PropertyDetailPage({ params }: PropertyPageProps) 
           fill
           className="object-cover"
           priority
+          unoptimized={property.images[0]?.startsWith('data:')}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-10 pt-32">

@@ -10,7 +10,9 @@ export default function NewPropertyPage() {
     'use server';
 
     const token = cookies().get('admin_token')?.value;
-    if (!token) redirect('/admin/login');
+    if (!token) {
+      return { error: 'Session expired. Please log in again.' };
+    }
 
     const title = String(formData.get('title') || '');
     const rawSlug = String(formData.get('slug') || '');
@@ -48,7 +50,7 @@ export default function NewPropertyPage() {
       });
 
       revalidatePath('/admin');
-      redirect('/admin');
+      return { success: true };
     } catch (error: any) {
       return { error: error.message || 'Failed to create property. Images may be too large - try using image URLs instead.' };
     }
