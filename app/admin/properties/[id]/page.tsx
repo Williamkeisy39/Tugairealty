@@ -26,27 +26,31 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
     const amenitiesRaw = String(formData.get('amenities') || '');
     const imagesRaw = String(formData.get('images') || '');
 
-    await prisma.property.update({
-      where: { id: params.id },
-      data: {
-        title: String(formData.get('title') || ''),
-        slug: String(formData.get('slug') || ''),
-        description: String(formData.get('description') || ''),
-        price: Number(formData.get('price') || 0),
-        currency: String(formData.get('currency') || 'KES'),
-        location: String(formData.get('location') || ''),
-        bedrooms: Number(formData.get('bedrooms') || 0),
-        bathrooms: Number(formData.get('bathrooms') || 0),
-        sizeSqm: formData.get('sizeSqm') ? Number(formData.get('sizeSqm')) : null,
-        amenities: amenitiesRaw ? amenitiesRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
-        images: imagesRaw ? imagesRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
-        featured: Boolean(formData.get('featured')),
-        status: (String(formData.get('status') || 'AVAILABLE')) as any
-      }
-    });
+    try {
+      await prisma.property.update({
+        where: { id: params.id },
+        data: {
+          title: String(formData.get('title') || ''),
+          slug: String(formData.get('slug') || ''),
+          description: String(formData.get('description') || ''),
+          price: Number(formData.get('price') || 0),
+          currency: String(formData.get('currency') || 'KES'),
+          location: String(formData.get('location') || ''),
+          bedrooms: Number(formData.get('bedrooms') || 0),
+          bathrooms: Number(formData.get('bathrooms') || 0),
+          sizeSqm: formData.get('sizeSqm') ? Number(formData.get('sizeSqm')) : null,
+          amenities: amenitiesRaw ? amenitiesRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
+          images: imagesRaw ? imagesRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
+          featured: Boolean(formData.get('featured')),
+          status: (String(formData.get('status') || 'AVAILABLE')) as any
+        }
+      });
 
-    revalidatePath('/admin');
-    redirect('/admin');
+      revalidatePath('/admin');
+      redirect('/admin');
+    } catch (error: any) {
+      return { error: error.message || 'Failed to update property. Images may be too large - try using image URLs instead.' };
+    }
   }
 
   return (

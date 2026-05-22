@@ -1,9 +1,11 @@
 "use client";
 
+import { useActionState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import ImageUpload from '@/components/admin/image-upload';
 
 export interface AdminProperty {
@@ -25,13 +27,20 @@ export interface AdminProperty {
 
 interface PropertyFormProps {
   property?: AdminProperty;
-  action: (formData: FormData) => void | Promise<void>;
+  action: (formData: FormData) => Promise<{ error?: string } | void>;
   submitLabel: string;
 }
 
 export default function PropertyForm({ property, action, submitLabel }: PropertyFormProps) {
+  const [state, formAction, isPending] = useActionState(action, undefined);
+
   return (
-    <form action={action} className="space-y-6">
+    <form action={formAction} className="space-y-6">
+      {state?.error && (
+        <Alert variant="destructive">
+          <AlertDescription>{state.error}</AlertDescription>
+        </Alert>
+      )}
       <Card>
         <CardHeader><CardTitle>Basic Details</CardTitle></CardHeader>
         <CardContent className="grid gap-5 md:grid-cols-2">
@@ -118,8 +127,8 @@ export default function PropertyForm({ property, action, submitLabel }: Property
         </CardContent>
       </Card>
 
-      <Button type="submit" className="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-8">
-        {submitLabel}
+      <Button type="submit" disabled={isPending} className="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-8 disabled:opacity-50">
+        {isPending ? 'Saving...' : submitLabel}
       </Button>
     </form>
   );

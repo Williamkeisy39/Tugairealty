@@ -4,7 +4,8 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Upload, X, Link as LinkIcon, ImagePlus } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Upload, X, Link as LinkIcon, ImagePlus, AlertCircle } from 'lucide-react';
 
 interface ImageUploadProps {
   name: string;
@@ -13,10 +14,14 @@ interface ImageUploadProps {
   defaultUrls?: string[];
 }
 
+const MAX_FILE_SIZE_MB = 2;
+const MAX_TOTAL_SIZE_MB = 8;
+
 export default function ImageUpload({ name, label = 'Images', multiple = true, defaultUrls = [] }: ImageUploadProps) {
   const [urls, setUrls] = useState<string[]>(defaultUrls);
   const [urlInput, setUrlInput] = useState('');
   const [mode, setMode] = useState<'url' | 'upload'>('url');
+  const [error, setError] = useState<string>('');
   const fileRef = useRef<HTMLInputElement>(null);
 
   function addUrl() {
@@ -37,6 +42,30 @@ export default function ImageUpload({ name, label = 'Images', multiple = true, d
   function handleFiles(event: React.ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
     if (!files) return;
+    
+    setError('');
+    const fileArray = Array.from(files);
+    
+    // Check individual file sizes
+    for (const file of fileArray) {
+      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        setError(`File "${file.name}" exceeds ${MAX_FILE_SIZE_MB}MB limit. Please choose a smaller file or use a URL.`);
+        if (fileRef.current) fileRef.current.value = '';
+        return;
+      }
+    }
+    
+    // Calculate total size of existing + new images
+    const existingSize = urls.reduce((acc, url) => acc + (url.length * 0.75), 0); // base64 is ~4/3 of binary
+    const newSize = fileArray.reduce((acc, file) => acc + file.size, 0);
+    const totalSizeMB = (existingSize + newSize) / (1024 * 1024);
+    
+    if (totalSizeMB > MAX_TOTAL_SIZE_MB) {
+      setError(`Total image size would be ${totalSizeMB.toFixed(1)}MB. Maximum allowed is ${MAX_TOTAL_SIZE_MB}MB. Use image URLs instead.`);
+      if (fileRef.current) fileRef.current.value = '';
+      return;
+    }
+    
     Array.from(files).forEach((file) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -78,6 +107,13 @@ export default function ImageUpload({ name, label = 'Images', multiple = true, d
         </div>
       </div>
 
+      {error && (
+        <Alert variant="destructive" className="py-2">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      
       {mode === 'url' ? (
         <div className="flex gap-2">
           <Input
@@ -98,7 +134,7 @@ export default function ImageUpload({ name, label = 'Images', multiple = true, d
         >
           <Upload size={28} className="text-slate-400" />
           <p className="text-sm text-slate-600">Click to browse or drag files here</p>
-          <p className="text-xs text-slate-400">PNG, JPG, WEBP up to 10MB</p>
+          <p className="text-xs text-slate-400">PNG, JPG, WEBP up to {MAX_FILE_SIZE_MB}MB per file (max {MAX_TOTAL_SIZE_MB}MB total)</p>
           <input
             ref={fileRef}
             type="file"
