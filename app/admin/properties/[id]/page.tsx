@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import PropertyForm, { AdminProperty } from '@/components/admin/property-form';
 import { prisma } from '@/lib/prisma';
+import { splitList } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,8 +40,8 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
           bedrooms: Number(formData.get('bedrooms') || 0),
           bathrooms: Number(formData.get('bathrooms') || 0),
           sizeSqm: formData.get('sizeSqm') ? Number(formData.get('sizeSqm')) : null,
-          amenities: amenitiesRaw ? amenitiesRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
-          images: imagesRaw ? imagesRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
+          amenities: amenitiesRaw ? splitList(amenitiesRaw) : [],
+          images: imagesRaw ? splitList(imagesRaw) : [],
           featured: Boolean(formData.get('featured')),
           status: (String(formData.get('status') || 'AVAILABLE')) as any
         }

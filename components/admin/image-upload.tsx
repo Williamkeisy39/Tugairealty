@@ -172,7 +172,7 @@ export default function ImageUpload({ name, label = 'Images', multiple = true, d
       )}
 
       {/* Hidden input to submit URLs to the form */}
-      <input type="hidden" name={name} value={urls.join(',')} />
+      <input type="hidden" name={name} value={urls.join('\n')} />
     </div>
   );
 }
