@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from 'react';
+import { useFormState, useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -34,7 +34,7 @@ interface PropertyFormProps {
 }
 
 export default function PropertyForm({ property, action, submitLabel }: PropertyFormProps) {
-  const [state, formAction, isPending] = useActionState(action, undefined);
+  const [state, formAction] = useFormState(action, undefined);
 
   return (
     <form action={formAction} className="space-y-6">
@@ -129,9 +129,17 @@ export default function PropertyForm({ property, action, submitLabel }: Property
         </CardContent>
       </Card>
 
-      <Button type="submit" disabled={isPending} className="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-8 disabled:opacity-50">
-        {isPending ? 'Saving...' : submitLabel}
-      </Button>
+      <SubmitButton label={submitLabel} />
     </form>
+  );
+}
+
+function SubmitButton({ label }: { label: string }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type="submit" disabled={pending} className="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-8 disabled:opacity-50">
+      {pending ? 'Saving...' : label}
+    </Button>
   );
 }
