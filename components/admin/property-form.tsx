@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import ImageUpload from '@/components/admin/image-upload';
+import { slugify } from '@/lib/utils';
 
 export interface AdminProperty {
   id?: string;
@@ -35,6 +37,22 @@ interface PropertyFormProps {
 
 export default function PropertyForm({ property, action, submitLabel }: PropertyFormProps) {
   const [state, formAction] = useFormState(action, undefined);
+  const [titleValue, setTitleValue] = useState(property?.title || '');
+  const [slugValue, setSlugValue] = useState(property?.slug || '');
+  const [slugDirty, setSlugDirty] = useState(Boolean(property?.slug));
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const nextTitle = event.target.value;
+    setTitleValue(nextTitle);
+    if (!slugDirty) {
+      setSlugValue(slugify(nextTitle));
+    }
+  };
+
+  const handleSlugChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSlugDirty(true);
+    setSlugValue(event.target.value);
+  };
 
   return (
     <form action={formAction} className="space-y-6">
@@ -48,11 +66,11 @@ export default function PropertyForm({ property, action, submitLabel }: Property
         <CardContent className="grid gap-5 md:grid-cols-2">
           <label className="space-y-1.5 text-sm">
             <span className="font-medium text-slate-700">Title</span>
-            <Input name="title" required defaultValue={property?.title || ''} />
+            <Input name="title" required value={titleValue} onChange={handleTitleChange} />
           </label>
           <label className="space-y-1.5 text-sm">
             <span className="font-medium text-slate-700">Slug (optional)</span>
-            <Input name="slug" defaultValue={property?.slug || ''} placeholder="auto-generated-if-empty" />
+            <Input name="slug" value={slugValue} onChange={handleSlugChange} placeholder="auto-generated-if-empty" />
           </label>
           <label className="space-y-1.5 text-sm">
             <span className="font-medium text-slate-700">Price</span>

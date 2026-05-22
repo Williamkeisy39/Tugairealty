@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import PropertyForm from '@/components/admin/property-form';
 import { prisma } from '@/lib/prisma';
+import { slugify } from '@/lib/utils';
 
 export default function NewPropertyPage() {
   async function createAction(_: { error?: string } | undefined, formData: FormData) {
@@ -11,14 +12,27 @@ export default function NewPropertyPage() {
     const token = cookies().get('admin_token')?.value;
     if (!token) redirect('/admin/login');
 
+    const title = String(formData.get('title') || '');
+    const rawSlug = String(formData.get('slug') || '');
     const amenitiesRaw = String(formData.get('amenities') || '');
     const imagesRaw = String(formData.get('images') || '');
+
+    const baseSlug = slugify(rawSlug || title) || `property-${Date.now()}`;
+    let slug = baseSlug;
+    let suffix = 1;
+
+    while (true) {
+      const existing = await prisma.property.findFirst({ where: { slug }, select: { id: true } });
+      if (!existing) break;
+      suffix += 1;
+      slug = `${baseSlug}-${suffix}`;
+    }
 
     try {
       await prisma.property.create({
         data: {
-          title: String(formData.get('title') || ''),
-          slug: String(formData.get('slug') || ''),
+          title,
+          slug,
           description: String(formData.get('description') || ''),
           price: Number(formData.get('price') || 0),
           currency: String(formData.get('currency') || 'KES'),
