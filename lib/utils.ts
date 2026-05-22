@@ -33,3 +33,14 @@ export function splitList(input: string) {
     .map((item) => item.trim())
     .filter(Boolean);
 }
+
+export function splitImageList(input: string) {
+  if (input.includes('data:') || input.includes('base64,')) {
+    return input
+      .split(/\r?\n/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return splitList(input);
+}
