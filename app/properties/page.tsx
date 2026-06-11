@@ -128,15 +128,24 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
 
   const where = categoryFilter ? { AND: [baseWhere, categoryFilter] } : baseWhere;
 
-  const [properties, total] = await Promise.all([
-    prisma.property.findMany({
-      where,
-      orderBy: { createdAt: 'desc' },
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE
-    }),
-    prisma.property.count({ where })
-  ]);
+  let properties: Awaited<ReturnType<typeof prisma.property.findMany>> = [];
+  let total = 0;
+
+  try {
+    const [p, t] = await Promise.all([
+      prisma.property.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: (page - 1) * PAGE_SIZE,
+        take: PAGE_SIZE
+      }),
+      prisma.property.count({ where })
+    ]);
+    properties = p;
+    total = t;
+  } catch {
+    // Gracefully degrade when the database is unreachable
+  }
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const params = new URLSearchParams();

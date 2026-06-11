@@ -19,28 +19,32 @@ function toNumber(value?: string | string[]) {
 }
 
 async function getGalleryImages(): Promise<GalleryMasonryItem[]> {
-  const properties = await prisma.property.findMany({
-    select: {
-      id: true,
-      slug: true,
-      title: true,
-      location: true,
-      images: true
-    },
-    orderBy: { createdAt: 'desc' }
-  });
+  try {
+    const properties = await prisma.property.findMany({
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        location: true,
+        images: true
+      },
+      orderBy: { createdAt: 'desc' }
+    });
 
-  return properties.flatMap((property) =>
-    property.images
-      .filter((image) => image.trim().length > 0)
-      .map((image, index) => ({
-        id: `${property.id}-${index}`,
-        src: image,
-        title: property.title,
-        location: property.location,
-        slug: property.slug
-      }))
-  );
+    return properties.flatMap((property) =>
+      property.images
+        .filter((image) => image.trim().length > 0)
+        .map((image, index) => ({
+          id: `${property.id}-${index}`,
+          src: image,
+          title: property.title,
+          location: property.location,
+          slug: property.slug
+        }))
+    );
+  } catch {
+    return [];
+  }
 }
 
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {

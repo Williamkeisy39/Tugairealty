@@ -15,15 +15,31 @@ export default async function AdminDashboardPage() {
   const token = cookies().get('admin_token')?.value;
   if (!token) redirect('/admin/login');
 
-  const [properties, rentalsCount, videosCount, blogsCount, sellRequestsCount, contactMessagesCount] =
-    await Promise.all([
+  let properties: Awaited<ReturnType<typeof prisma.property.findMany>> = [];
+  let rentalsCount = 0;
+  let videosCount = 0;
+  let blogsCount = 0;
+  let sellRequestsCount = 0;
+  let contactMessagesCount = 0;
+
+  try {
+    const [p, rc, vc, bc, sc, cc] = await Promise.all([
       prisma.property.findMany({ orderBy: { createdAt: 'desc' } }),
       prisma.rental.count(),
       prisma.projectVideo.count(),
       prisma.blogPost.count(),
       prisma.sellRequest.count(),
-      prisma.contactMessage.count(),
+      prisma.contactMessage.count()
     ]);
+    properties = p;
+    rentalsCount = rc;
+    videosCount = vc;
+    blogsCount = bc;
+    sellRequestsCount = sc;
+    contactMessagesCount = cc;
+  } catch {
+    // Gracefully degrade when the database is unreachable
+  }
 
   const total = properties.length;
   const available = properties.filter((p) => p.status === 'AVAILABLE').length;

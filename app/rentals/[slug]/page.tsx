@@ -12,7 +12,11 @@ interface RentalPageProps {
 }
 
 async function getRental(slug: string) {
-  return prisma.rental.findUnique({ where: { slug } });
+  try {
+    return await prisma.rental.findUnique({ where: { slug } });
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: RentalPageProps): Promise<Metadata> {

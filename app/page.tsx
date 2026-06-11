@@ -9,10 +9,19 @@ import HeroTypewriter from '@/components/hero-typewriter';
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const [featured, latest] = await Promise.all([
-    prisma.property.findMany({ where: { featured: true }, orderBy: { createdAt: 'desc' }, take: 3 }),
-    prisma.property.findMany({ orderBy: { createdAt: 'desc' }, take: 6 })
-  ]);
+  let featured: Awaited<ReturnType<typeof prisma.property.findMany>> = [];
+  let latest: Awaited<ReturnType<typeof prisma.property.findMany>> = [];
+
+  try {
+    const [f, l] = await Promise.all([
+      prisma.property.findMany({ where: { featured: true }, orderBy: { createdAt: 'desc' }, take: 3 }),
+      prisma.property.findMany({ orderBy: { createdAt: 'desc' }, take: 6 })
+    ]);
+    featured = f;
+    latest = l;
+  } catch {
+    // Gracefully degrade when the database is unreachable
+  }
 
   const heroImages = ['/Homepage1.jpeg', '/Homepage2.jpeg', '/Homepage3.jpeg', '/Homepage4.jpeg'];
   const exploreCategories = [

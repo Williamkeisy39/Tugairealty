@@ -5,10 +5,16 @@ import { prisma } from '@/lib/prisma';
 export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
-  const posts = await prisma.blogPost.findMany({
-    where: { isPublished: true },
-    orderBy: { createdAt: 'desc' }
-  });
+  let posts: Awaited<ReturnType<typeof prisma.blogPost.findMany>> = [];
+
+  try {
+    posts = await prisma.blogPost.findMany({
+      where: { isPublished: true },
+      orderBy: { createdAt: 'desc' }
+    });
+  } catch {
+    // Gracefully degrade when the database is unreachable
+  }
 
   return (
     <div>

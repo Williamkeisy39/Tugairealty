@@ -12,7 +12,11 @@ interface BlogPostPageProps {
 }
 
 async function getPost(slug: string) {
-  return prisma.blogPost.findUnique({ where: { slug } });
+  try {
+    return await prisma.blogPost.findUnique({ where: { slug } });
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {

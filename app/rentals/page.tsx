@@ -28,15 +28,24 @@ export default async function RentalsPage({ searchParams }: RentalsPageProps) {
     ...(location && { location: { contains: location, mode: 'insensitive' as const } })
   };
 
-  const [rentals, total] = await Promise.all([
-    prisma.rental.findMany({
-      where,
-      orderBy: { createdAt: 'desc' },
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE
-    }),
-    prisma.rental.count({ where })
-  ]);
+  let rentals: Awaited<ReturnType<typeof prisma.rental.findMany>> = [];
+  let total = 0;
+
+  try {
+    const [r, t] = await Promise.all([
+      prisma.rental.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: (page - 1) * PAGE_SIZE,
+        take: PAGE_SIZE
+      }),
+      prisma.rental.count({ where })
+    ]);
+    rentals = r;
+    total = t;
+  } catch {
+    // Gracefully degrade when the database is unreachable
+  }
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const params = new URLSearchParams();

@@ -16,7 +16,11 @@ interface PropertyPageProps {
 }
 
 async function getProperty(slug: string) {
-  return prisma.property.findUnique({ where: { slug } });
+  try {
+    return await prisma.property.findUnique({ where: { slug } });
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: PropertyPageProps): Promise<Metadata> {
@@ -39,24 +43,31 @@ export default async function PropertyDetailPage({ params }: PropertyPageProps) 
     notFound();
   }
 
-  const related = await prisma.property.findMany({
-    where: {
-      id: { not: property.id },
-      location: property.location
-    },
-    orderBy: { createdAt: 'desc' },
-    take: 3
-  });
+  let related: Awaited<ReturnType<typeof prisma.property.findMany>> = [];
+  let recommended: Awaited<ReturnType<typeof prisma.property.findMany>> = [];
 
-  const recommended = related.length < 3
-    ? await prisma.property.findMany({
-        where: {
-          id: { notIn: [property.id, ...related.map(r => r.id)] }
-        },
-        orderBy: { createdAt: 'desc' },
-        take: 3 - related.length
-      })
-    : [];
+  try {
+    related = await prisma.property.findMany({
+      where: {
+        id: { not: property.id },
+        location: property.location
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 3
+    });
+
+    recommended = related.length < 3
+      ? await prisma.property.findMany({
+          where: {
+            id: { notIn: [property.id, ...related.map(r => r.id)] }
+          },
+          orderBy: { createdAt: 'desc' },
+          take: 3 - related.length
+        })
+      : [];
+  } catch {
+    // Gracefully degrade related listings when the database is unreachable
+  }
 
   const similarListings = [...related, ...recommended];
 

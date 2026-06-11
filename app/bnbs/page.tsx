@@ -7,10 +7,16 @@ import { formatCurrency } from '@/lib/utils';
 export const dynamic = 'force-dynamic';
 
 export default async function BnbsPage() {
-  const bnbs = await prisma.bnb.findMany({
-    where: { status: 'AVAILABLE' },
-    orderBy: { createdAt: 'desc' }
-  });
+  let bnbs: Awaited<ReturnType<typeof prisma.bnb.findMany>> = [];
+
+  try {
+    bnbs = await prisma.bnb.findMany({
+      where: { status: 'AVAILABLE' },
+      orderBy: { createdAt: 'desc' }
+    });
+  } catch {
+    // Gracefully degrade when the database is unreachable
+  }
 
   return (
     <div>
