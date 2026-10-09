@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ADMIN_COOKIE, ADMIN_SESSION_MAX_AGE, createSessionValue, isValidLoginToken } from '@/lib/admin-auth';
 
 interface LoginPageProps {
   searchParams?: { error?: string };
@@ -12,14 +13,18 @@ export default function AdminLoginPage({ searchParams }: LoginPageProps) {
     'use server';
 
     const token = String(formData.get('token') || '');
-    const expectedToken = process.env.ADMIN_TOKEN || 'change-me';
-
-    if (token !== expectedToken) {
+    if (!isValidLoginToken(token)) {
       redirect('/admin/login?error=1');
     }
 
-    cookies().set('admin_session', '1', { httpOnly: true, sameSite: 'lax', path: '/' });
-    cookies().set('admin_token', token, { httpOnly: true, sameSite: 'lax', path: '/' });
+    // Persistent session: stays signed in across pages and browser restarts.
+    cookies().set(ADMIN_COOKIE, await createSessionValue(), {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      maxAge: ADMIN_SESSION_MAX_AGE
+    });
     redirect('/admin');
   }
 

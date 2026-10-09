@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { isAdmin, requireAdmin } from '@/lib/admin-session';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import PropertyForm, { AdminProperty } from '@/components/admin/property-form';
@@ -12,8 +12,7 @@ interface EditPropertyPageProps {
 }
 
 export default async function EditPropertyPage({ params }: EditPropertyPageProps) {
-  const token = cookies().get('admin_token')?.value;
-  if (!token) redirect('/admin/login');
+  await requireAdmin();
 
   const property = await prisma.property.findUnique({ where: { id: params.id } });
   if (!property) redirect('/admin');
@@ -21,8 +20,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
   async function updateAction(_: { error?: string } | undefined, formData: FormData) {
     'use server';
 
-    const currentToken = cookies().get('admin_token')?.value;
-    if (!currentToken) {
+    if (!(await isAdmin())) {
       return { error: 'Session expired. Please log in again.' };
     }
 

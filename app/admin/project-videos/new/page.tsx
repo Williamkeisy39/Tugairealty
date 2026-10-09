@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { isAdmin, requireAdmin } from '@/lib/admin-session';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import ProjectVideoForm from '@/components/admin/project-video-form';
@@ -8,8 +8,7 @@ export default function NewProjectVideoPage() {
   async function createAction(formData: FormData) {
     'use server';
 
-    const token = cookies().get('admin_token')?.value;
-    if (!token) redirect('/admin/login');
+    await requireAdmin();
 
     await prisma.projectVideo.create({
       data: {

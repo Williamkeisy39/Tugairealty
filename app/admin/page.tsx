@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { cookies } from 'next/headers';
+import { isAdmin, requireAdmin } from '@/lib/admin-session';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { Button } from '@/components/ui/button';
@@ -12,8 +12,7 @@ import { Building2, Key, BedDouble, Video, FileText, MessageSquare, Mail, Trendi
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
-  const token = cookies().get('admin_token')?.value;
-  if (!token) redirect('/admin/login');
+  await requireAdmin();
 
   let properties: Awaited<ReturnType<typeof prisma.property.findMany>> = [];
   let rentalsCount = 0;
@@ -21,6 +20,7 @@ export default async function AdminDashboardPage() {
   let blogsCount = 0;
   let sellRequestsCount = 0;
   let contactMessagesCount = 0;
+  let dbError = false;
 
   try {
     const [p, rc, vc, bc, sc, cc] = await Promise.all([
@@ -37,8 +37,9 @@ export default async function AdminDashboardPage() {
     blogsCount = bc;
     sellRequestsCount = sc;
     contactMessagesCount = cc;
-  } catch {
-    // Gracefully degrade when the database is unreachable
+  } catch (error) {
+    console.error('[admin] Failed to load dashboard data', error);
+    dbError = true;
   }
 
   const total = properties.length;
@@ -49,14 +50,14 @@ export default async function AdminDashboardPage() {
   async function deleteAction(formData: FormData) {
     'use server';
     const id = String(formData.get('id') || '');
-    const t = cookies().get('admin_token')?.value;
-    if (!t) redirect('/admin/login');
+    await requireAdmin();
     await prisma.property.delete({ where: { id } });
     revalidatePath('/admin');
+    revalidatePath('/admin/properties');
   }
 
   const stats = [
-    { label: 'Properties', value: total, icon: Building2, href: '/admin', color: 'text-blue-600 bg-blue-50' },
+    { label: 'Properties', value: total, icon: Building2, href: '/admin/properties', color: 'text-blue-600 bg-blue-50' },
     { label: 'Rentals', value: rentalsCount, icon: Key, href: '/admin/rentals', color: 'text-purple-600 bg-purple-50' },
     { label: 'Videos', value: videosCount, icon: Video, href: '/admin/project-videos', color: 'text-pink-600 bg-pink-50' },
     { label: 'Blogs', value: blogsCount, icon: FileText, href: '/admin/blogs', color: 'text-emerald-600 bg-emerald-50' },
@@ -75,6 +76,12 @@ export default async function AdminDashboardPage() {
           <Link href="/admin/properties/new"><Plus size={16} className="mr-2" />Add Property</Link>
         </Button>
       </div>
+
+      {dbError && (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+          Could not connect to the database, so no data can be shown. Check that DATABASE_URL is set correctly for this deployment.
+        </div>
+      )}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {stats.map((s) => {

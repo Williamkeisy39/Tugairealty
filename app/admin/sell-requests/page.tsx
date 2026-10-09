@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { cookies } from 'next/headers';
+import { isAdmin, requireAdmin } from '@/lib/admin-session';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { Button } from '@/components/ui/button';
@@ -8,13 +8,11 @@ import { revalidatePath } from 'next/cache';
 export const dynamic = 'force-dynamic';
 
 export default async function AdminSellRequestsPage() {
-  const token = cookies().get('admin_token')?.value;
-  if (!token) redirect('/admin/login');
+  await requireAdmin();
 
   async function updateStatusAction(formData: FormData) {
     'use server';
-    const currentToken = cookies().get('admin_token')?.value;
-    if (!currentToken) redirect('/admin/login');
+    await requireAdmin();
 
     const id = String(formData.get('id') || '');
     const status = String(formData.get('status') || 'PENDING') as 'PENDING' | 'REVIEWED' | 'CONTACTED' | 'CLOSED';
@@ -25,8 +23,7 @@ export default async function AdminSellRequestsPage() {
 
   async function deleteAction(formData: FormData) {
     'use server';
-    const currentToken = cookies().get('admin_token')?.value;
-    if (!currentToken) redirect('/admin/login');
+    await requireAdmin();
 
     const id = String(formData.get('id') || '');
     await prisma.sellRequest.delete({ where: { id } });

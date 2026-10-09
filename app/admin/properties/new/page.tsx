@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { isAdmin, requireAdmin } from '@/lib/admin-session';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import PropertyForm from '@/components/admin/property-form';
@@ -9,8 +9,7 @@ export default function NewPropertyPage() {
   async function createAction(_: { error?: string } | undefined, formData: FormData) {
     'use server';
 
-    const token = cookies().get('admin_token')?.value;
-    if (!token) {
+    if (!(await isAdmin())) {
       return { error: 'Session expired. Please log in again.' };
     }
 

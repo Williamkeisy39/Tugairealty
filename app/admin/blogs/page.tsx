@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { cookies } from 'next/headers';
+import { isAdmin, requireAdmin } from '@/lib/admin-session';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { Button } from '@/components/ui/button';
@@ -9,13 +9,11 @@ import { Plus } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 
 export default async function AdminBlogsPage() {
-  const token = cookies().get('admin_token')?.value;
-  if (!token) redirect('/admin/login');
+  await requireAdmin();
 
   async function togglePublishAction(formData: FormData) {
     'use server';
-    const currentToken = cookies().get('admin_token')?.value;
-    if (!currentToken) redirect('/admin/login');
+    await requireAdmin();
 
     const id = String(formData.get('id') || '');
     const current = String(formData.get('current') || 'false');
@@ -26,8 +24,7 @@ export default async function AdminBlogsPage() {
 
   async function deleteAction(formData: FormData) {
     'use server';
-    const currentToken = cookies().get('admin_token')?.value;
-    if (!currentToken) redirect('/admin/login');
+    await requireAdmin();
 
     const id = String(formData.get('id') || '');
     await prisma.blogPost.delete({ where: { id } });

@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { isAdmin, requireAdmin } from '@/lib/admin-session';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import ProjectVideoForm, { AdminProjectVideo } from '@/components/admin/project-video-form';
@@ -11,8 +11,7 @@ interface EditProjectVideoPageProps {
 }
 
 export default async function EditProjectVideoPage({ params }: EditProjectVideoPageProps) {
-  const token = cookies().get('admin_token')?.value;
-  if (!token) redirect('/admin/login');
+  await requireAdmin();
 
   const video = await prisma.projectVideo.findUnique({ where: { id: params.id } });
   if (!video) redirect('/admin/project-videos');
@@ -20,8 +19,7 @@ export default async function EditProjectVideoPage({ params }: EditProjectVideoP
   async function updateAction(formData: FormData) {
     'use server';
 
-    const currentToken = cookies().get('admin_token')?.value;
-    if (!currentToken) redirect('/admin/login');
+    await requireAdmin();
 
     await prisma.projectVideo.update({
       where: { id: params.id },

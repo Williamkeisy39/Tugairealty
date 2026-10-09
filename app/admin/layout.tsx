@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { cookies } from 'next/headers';
+import { isAdmin } from '@/lib/admin-session';
 import { ReactNode } from 'react';
 import { Toaster } from 'sonner';
 import {
@@ -16,7 +16,7 @@ import {
 
 const navItems = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-  { label: 'Properties', href: '/admin/properties/new', icon: Building2, group: 'Listings' },
+  { label: 'Properties', href: '/admin/properties', icon: Building2, group: 'Listings' },
   { label: 'Rentals', href: '/admin/rentals', icon: Key },
   { label: 'Bnbs', href: '/admin/bnbs', icon: BedDouble },
   { label: 'Videos', href: '/admin/project-videos', icon: Video, group: 'Content' },
@@ -25,8 +25,8 @@ const navItems = [
   { label: 'Contact Messages', href: '/admin/contact-messages', icon: Mail },
 ];
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
-  const token = cookies().get('admin_token')?.value;
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  const token = await isAdmin();
 
   return (
     <div className="flex min-h-screen bg-slate-50">
