@@ -16,6 +16,8 @@ interface ImageUploadProps {
 
 const MAX_FILE_SIZE_MB = 2;
 const MAX_TOTAL_SIZE_MB = 8;
+const MAX_DIMENSION = 1600;
+const JPEG_QUALITY = 0.8;
 
 export default function ImageUpload({ name, label = 'Images', multiple = true, defaultUrls = [] }: ImageUploadProps) {
   const [urls, setUrls] = useState<string[]>(defaultUrls);
@@ -39,46 +41,72 @@ export default function ImageUpload({ name, label = 'Images', multiple = true, d
     setUrls((prev) => prev.filter((_, i) => i !== index));
   }
 
-  function handleFiles(event: React.ChangeEvent<HTMLInputElement>) {
+  // Resize and re-encode an image in the browser so large camera photos fit the upload limits
+  function compressImage(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const objectUrl = URL.createObjectURL(file);
+      const img = new window.Image();
+      img.onload = () => {
+        const scale = Math.min(1, MAX_DIMENSION / Math.max(img.width, img.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          URL.revokeObjectURL(objectUrl);
+          reject(new Error('Canvas not supported'));
+          return;
+        }
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(objectUrl);
+        resolve(canvas.toDataURL('image/jpeg', JPEG_QUALITY));
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error(`Could not read "${file.name}"`));
+      };
+      img.src = objectUrl;
+    });
+  }
+
+  async function handleFiles(event: React.ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
     if (!files) return;
-    
+
     setError('');
     const fileArray = Array.from(files);
-    
-    // Check individual file sizes
-    for (const file of fileArray) {
-      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setError(`File "${file.name}" exceeds ${MAX_FILE_SIZE_MB}MB limit. Please choose a smaller file or use a URL.`);
-        if (fileRef.current) fileRef.current.value = '';
+    if (fileRef.current) fileRef.current.value = '';
+
+    let compressed: string[];
+    try {
+      compressed = await Promise.all(fileArray.map(compressImage));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to process image.');
+      return;
+    }
+
+    for (let i = 0; i < compressed.length; i++) {
+      if (compressed[i].length * 0.75 > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        setError(`File "${fileArray[i].name}" is still over ${MAX_FILE_SIZE_MB}MB after compression. Please use a URL instead.`);
         return;
       }
     }
-    
-    // Calculate total size of existing + new images
-    const existingSize = urls.reduce((acc, url) => acc + (url.length * 0.75), 0); // base64 is ~4/3 of binary
-    const newSize = fileArray.reduce((acc, file) => acc + file.size, 0);
-    const totalSizeMB = (existingSize + newSize) / (1024 * 1024);
-    
+
+    // Calculate total size of existing + new images (base64 is ~4/3 of binary)
+    const existing = multiple ? urls : [];
+    const totalBytes = [...existing, ...compressed].reduce((acc, url) => acc + url.length * 0.75, 0);
+    const totalSizeMB = totalBytes / (1024 * 1024);
+
     if (totalSizeMB > MAX_TOTAL_SIZE_MB) {
       setError(`Total image size would be ${totalSizeMB.toFixed(1)}MB. Maximum allowed is ${MAX_TOTAL_SIZE_MB}MB. Use image URLs instead.`);
-      if (fileRef.current) fileRef.current.value = '';
       return;
     }
-    
-    Array.from(files).forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const dataUrl = e.target?.result as string;
-        if (multiple) {
-          setUrls((prev) => [...prev, dataUrl]);
-        } else {
-          setUrls([dataUrl]);
-        }
-      };
-      reader.readAsDataURL(file);
-    });
-    if (fileRef.current) fileRef.current.value = '';
+
+    if (multiple) {
+      setUrls((prev) => [...prev, ...compressed]);
+    } else {
+      setUrls(compressed.slice(0, 1));
+    }
   }
 
   return (
@@ -134,7 +162,7 @@ export default function ImageUpload({ name, label = 'Images', multiple = true, d
         >
           <Upload size={28} className="text-slate-400" />
           <p className="text-sm text-slate-600">Click to browse or drag files here</p>
-          <p className="text-xs text-slate-400">PNG, JPG, WEBP up to {MAX_FILE_SIZE_MB}MB per file (max {MAX_TOTAL_SIZE_MB}MB total)</p>
+          <p className="text-xs text-slate-400">PNG, JPG, WEBP — large photos are automatically compressed</p>
           <input
             ref={fileRef}
             type="file"
